@@ -47,8 +47,10 @@ public class ListExercises {
         // TODO: Fill in this function.
         int cnt = 0;
         for (String s:words){
-            if (s.contains(c)){
-                cnt++;
+            for (int i = 0; i < s.length(); i++){
+                if (c == s.charAt(i)){
+                    cnt ++;
+                }
             }
         }
         return cnt;

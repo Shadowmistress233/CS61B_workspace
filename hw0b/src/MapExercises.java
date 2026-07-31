@@ -26,7 +26,7 @@ public class MapExercises {
         Map<Integer, Integer> map = new TreeMap<>();
 
         for (int num : nums){
-            map.put(num,math.pow(num,2));
+            map.put(num, num * num);
         }
 
         return map;
