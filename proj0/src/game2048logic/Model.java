@@ -159,7 +159,8 @@ public class Model {
         while (targetY < size() - 1 && tile(x, targetY + 1) == null){
             targetY++;
         }
-        if (targetY + 1 < size() && tile(x, targetY + 1).value() == myValue){
+        if (targetY + 1 < size() && tile(x, targetY + 1).value() == myValue
+            && !tile(x, targetY + 1).wasMerged()){
             targetY++;
             score += 2 * myValue;
         }
