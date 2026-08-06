@@ -85,10 +85,10 @@ public class Model {
      * */
     public boolean emptySpaceExists() {
         // TODO: Task 2. Fill in this function.
-        for (int x = 0; x < size(); x++){
-            for (int y = 0; y < size(); y++){
+        for (int x = 0; x < size(); x++) {
+            for (int y = 0; y < size(); y++) {
                 Tile t = tile(x, y);
-                if (t == null){
+                if (t == null) {
                     return true;
                 }
             }
@@ -176,6 +176,12 @@ public class Model {
      * */
     public void tiltColumn(int x) {
         // TODO: Task 7. Fill in this function.
+        for (int y = size() - 1; y >= 0; y--) {
+            Tile t = tile(x, y);
+            if (t != null){
+                moveTileUpAsFarAsPossible(x, y);
+            }
+        }
     }
 
     public void tilt(Side side) {
