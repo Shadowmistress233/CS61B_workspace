@@ -128,17 +128,10 @@ public class Model {
         for (int x = 0; x < size(); x++){
             for (int y = 0; y < size(); y++){
                 Tile t = tile(x, y);
-                if (x + 1 != size()){
-                    Tile t1 = tile(x+1, y);
-                    if (t1.value() == t.value()){
-                        return true;
-                    }
-                }
-                if (y+1 != size()){
-                    Tile t2 = tile(x, y+1);
-                    if (t2.value() == t.value()){
-                        return true;
-                    }
+                boolean matchRight = (x + 1 < size() && (tile(x + 1, y).value() == t.value()));
+                boolean matchUp = (y + 1 < size() && (tile(x, y + 1).value() == t.value()));
+                if (matchUp || matchRight){
+                    return true;
                 }
             }
         }
