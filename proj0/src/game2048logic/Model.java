@@ -119,11 +119,11 @@ public class Model {
      * 2. There are two adjacent tiles with the same value.
      */
     public boolean atLeastOneMoveExists() {
-        if (emptySpaceExists()){
+        if (emptySpaceExists()) {
             return true;
         }
         for (int x = 0; x < size(); x++) {
-            for (int y = 0; y < size(); y++){
+            for (int y = 0; y < size(); y++) {
                 Tile t = tile(x, y);
                 boolean matchRight = (x + 1 < size() && (tile(x + 1, y).value() == t.value()));
                 boolean matchUp = (y + 1 < size() && (tile(x, y + 1).value() == t.value()));
@@ -153,7 +153,7 @@ public class Model {
         Tile currTile = board.tile(x, y);
         int myValue = currTile.value();
         int targetY = y;
-        while (targetY < size() - 1 && tile(x, targetY + 1) == null){
+        while (targetY < size() - 1 && tile(x, targetY + 1) == null) {
             targetY++;
         }
         if (targetY + 1 < size() && tile(x, targetY + 1).value() == myValue
@@ -176,7 +176,7 @@ public class Model {
     public void tiltColumn(int x) {
         for (int y = size() - 1; y >= 0; y--) {
             Tile t = tile(x, y);
-            if (t != null){
+            if (t != null) {
                 moveTileUpAsFarAsPossible(x, y);
             }
         }
