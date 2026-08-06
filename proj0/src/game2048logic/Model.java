@@ -85,7 +85,15 @@ public class Model {
      * */
     public boolean emptySpaceExists() {
         // TODO: Task 2. Fill in this function.
-        return false;
+        Board board = getBoard();
+        for (int i = 0; i < board.size(); i++){
+            for (int j = 0; j < board.size(); j++){
+                Tile t = board.tile(i, j);
+                if (t == null){
+                    return true;
+                }
+            }
+        } return false;
     }
 
     /**
