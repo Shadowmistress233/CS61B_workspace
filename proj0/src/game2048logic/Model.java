@@ -156,6 +156,14 @@ public class Model {
         Tile currTile = board.tile(x, y);
         int myValue = currTile.value();
         int targetY = y;
+        while (targetY < size() - 1 && tile(x, targetY + 1) == null){
+            targetY++;
+        }
+        if (targetY + 1 < size() && tile(x, targetY + 1).value() == myValue){
+            targetY++;
+            score += 2 * myValue;
+        }
+        board.move (x, targetY, currTile);
 
         // TODO: Tasks 5, 6, and 10. Fill in this function.
     }
