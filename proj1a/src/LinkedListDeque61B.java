@@ -1,6 +1,24 @@
 import java.util.List;
 
 public class LinkedListDeque61B<T> implements Deque61B<T>{
+    private static class Node<T> {
+        T item;
+        Node<T> next;
+        Node<T> prev;
+        private Node(T value) {
+            item = value;
+            next = null;
+            prev = null;
+        }
+    }
+
+    private Node<T> sentinel;
+    private int size;
+    public LinkedListDeque61B() {
+        sentinel = new Node<>(null);
+        sentinel.next = sentinel;
+        size = 0;
+    }
 
     @Override
     public void addFirst(T x) {
