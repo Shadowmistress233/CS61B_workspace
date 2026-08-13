@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
 
@@ -6,37 +7,58 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     private int size;
     private int INIT = 8;
     private int head, tail;
-    private int getIndex(int idx) {
-        return Math.floorMod(idx, size);
-    }
+    private int length;
     public ArrayDeque61B() {
         items = (T[]) new Object[INIT];
         size = 0;
         head = 0;
-        tail = 0;
+        tail = -1;
+        length = INIT;
+    }
+    private void resize(int number) {
+        T[] temp = (T[]) new Object[number];
+        head = 0;
+        tail = size - 1;
+        for (int i = 0; i < size; i++) {
+            T x = get(i);
+            temp[i] = x;
+        }
+        items = temp;
+        length = number;
     }
     @Override
     public void addFirst(T x) {
-        int idx = getIndex(--head);
-        items[idx] = x;
         size++;
+        int index = Math.floorMod(--head, length);
+        items[index] = x;
+        if (size == length) {
+            resize(2 * length);
+        }
     }
 
     @Override
     public void addLast(T x) {
-        int idx = getIndex(++tail);
-        items[idx] = x;
         size++;
+        int index = Math.floorMod(++tail, length);
+        items[index] = x;
+        if (size == length) {
+            resize(2 * length);
+        }
     }
 
     @Override
     public List<T> toList() {
-        return List.of();
+        List<T> returnList = new ArrayList<>();
+        for (int i = 0 ;i < size; i++) {
+            T x = get(i);
+            returnList.add(x);
+        }
+        return returnList;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
@@ -46,21 +68,44 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public T removeFirst() {
-        return null;
+        if (this.isEmpty()) {
+            return null;
+        }
+        int index = Math.floorMod(head, length);
+        T res = items[index];
+        items[index] = null;
+        head++;
+        size--;
+        if (4 * size < length) {
+            resize(length / 2 + 1);
+        }
+        return res;
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if (this.isEmpty()) {
+            return null;
+        }
+        int index = Math.floorMod(tail, length);
+        T res = items[index];
+        items[index] = null;
+        tail--;
+        size--;
+        if (4 * size < length) {
+            resize(length / 2 + 1);
+        }
+        return res;
     }
 
     @Override
     public T get(int index) {
-        return null;
+        index = Math.floorMod(index + head, length);
+        return items[index];
     }
 
     @Override
     public T getRecursive(int index) {
-        return null;
+        throw new UnsupportedOperationException("No need to implement getRecursive for proj 1b");
     }
 }
