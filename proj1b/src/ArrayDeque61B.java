@@ -7,13 +7,11 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     private int size;
     private int INIT = 8;
     private int head, tail;
-    private int length;
     public ArrayDeque61B() {
         items = (T[]) new Object[INIT];
         size = 0;
         head = 0;
         tail = -1;
-        length = INIT;
     }
     private void resize(int number) {
         T[] temp = (T[]) new Object[number];
@@ -24,25 +22,24 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             temp[i] = x;
         }
         items = temp;
-        length = number;
     }
     @Override
     public void addFirst(T x) {
         size++;
-        int index = Math.floorMod(--head, length);
+        int index = Math.floorMod(--head, items.length);
         items[index] = x;
-        if (size == length) {
-            resize(2 * length);
+        if (size == items.length) {
+            resize(2 * items.length);
         }
     }
 
     @Override
     public void addLast(T x) {
         size++;
-        int index = Math.floorMod(++tail, length);
+        int index = Math.floorMod(++tail, items.length);
         items[index] = x;
-        if (size == length) {
-            resize(2 * length);
+        if (size == items.length) {
+            resize(2 * items.length);
         }
     }
 
@@ -71,13 +68,13 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         if (this.isEmpty()) {
             return null;
         }
-        int index = Math.floorMod(head, length);
+        int index = Math.floorMod(head, items.length);
         T res = items[index];
         items[index] = null;
         head++;
         size--;
-        if (4 * size < length) {
-            resize(length / 2 + 1);
+        if (items.length >= 16 && 4 * size < items.length) {
+            resize(items.length / 2);
         }
         return res;
     }
@@ -87,20 +84,23 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         if (this.isEmpty()) {
             return null;
         }
-        int index = Math.floorMod(tail, length);
+        int index = Math.floorMod(tail, items.length);
         T res = items[index];
         items[index] = null;
         tail--;
         size--;
-        if (4 * size < length) {
-            resize(length / 2 + 1);
+        if (items.length >= 16 && 4 * size < items.length) {
+            resize(items.length / 2);
         }
         return res;
     }
 
     @Override
     public T get(int index) {
-        index = Math.floorMod(index + head, length);
+        if (index < 0 || index >= size) {
+            return null;
+        }
+        index = Math.floorMod(index + head, items.length);
         return items[index];
     }
 
