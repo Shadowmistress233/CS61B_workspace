@@ -1,30 +1,30 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class LinkedListDeque61B<T> implements Deque61B<T>{
-    private static class Node<T> {
+public class LinkedListDeque61B<T> implements Deque61B<T> {
+    private class Node {
         T item;
-        Node<T> prev;
-        Node<T> next;
+        Node prev;
+        Node next;
 
         public Node(T item) {
-           this.item = item;
-           this.prev = null;
-           this.next = null;
+            this.item = item;
+            this.prev = null;
+            this.next = null;
         }
 
     }
-    Node<T> sentinel;
+    private Node sentinel;
     private int size;
     public LinkedListDeque61B() {
-        sentinel = new Node<>(null);
+        sentinel = new Node(null);
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
         size = 0;
     }
     @Override
     public void addFirst(T x) {
-        Node<T> newnode = new Node<>(x);
+        Node newnode = new Node(x);
         newnode.next = sentinel.next;
         sentinel.next.prev = newnode;
         sentinel.next = newnode;
@@ -35,7 +35,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
 
     @Override
     public void addLast(T x) {
-        Node<T> newnode = new Node<>(x);
+        Node newnode = new Node(x);
         newnode.prev = sentinel.prev;
         sentinel.prev.next = newnode;
         newnode.next = sentinel;
@@ -47,7 +47,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
     @Override
     public List<T> toList() {
         List<T> returnList = new ArrayList<>();
-        Node<T> p = sentinel.next;
+        Node p = sentinel.next;
         while (p != sentinel) {
             returnList.add(p.item);
             p = p.next;
@@ -94,16 +94,14 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
         if (this.isEmpty() || index < 0 || index >= size) {
             return null;
         }
-        Node<T> p = sentinel.next;
-        while (true) {
-            if (index == 0) {
-                return p.item;
-            }
+        Node p = sentinel.next;
+        while (index > 0) {
             p = p.next;
             index--;
         }
+        return p.item;
     }
-    private  T getRecursiveHelper(int index, Node<T> p) {
+    private  T getRecursiveHelper(int index, Node p) {
         if (index == 0) {
             return p.item;
         }
