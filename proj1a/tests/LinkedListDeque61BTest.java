@@ -2,6 +2,8 @@ import jh61b.utils.Reflection;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.sql.DataTruncation;
+
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
@@ -56,5 +58,75 @@ public class LinkedListDeque61BTest {
          assertThat(lld1.toList()).containsExactly(-2, -1, 0, 1, 2).inOrder();
      }
 
+    /** 编写isEmpty和size方法的测试。*/
+    @Test
+    public void isEmptyAndSizeTest() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+        assertThat(lld1.isEmpty()).isTrue();
+        assertThat(lld1.size()).isEqualTo(0);
+        //初始化之后应该为空，并且size为0
+        lld1.addFirst(1);// [1]
+        assertThat(lld1.isEmpty()).isFalse();
+        assertThat(lld1.size()).isEqualTo(1);
+        lld1.addLast(2); //[1, 2]
+        assertThat(lld1.isEmpty()).isFalse();
+        assertThat(lld1.size()).isEqualTo(2);
+        lld1.removeFirst(); //[2]
+        assertThat(lld1.isEmpty()).isFalse();
+        assertThat(lld1.size()).isEqualTo(1);
+        lld1.removeLast(); //[]
+        assertThat(lld1.isEmpty()).isTrue();
+        assertThat(lld1.size()).isEqualTo(0);
+
+    }
+
+    /**
+     * 编写get方法的测试
+     */
+    @Test
+    public void getTest() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+        assertThat(lld1.get(0)).isEqualTo(null);
+        assertThat(lld1.get(1)).isEqualTo(null);
+        lld1.addLast(1);
+        assertThat(lld1.get(1)).isEqualTo(null);
+        assertThat(lld1.get(0)).isEqualTo(1);
+        lld1.addFirst(10);
+        assertThat(lld1.get(0)).isEqualTo(10);
+        assertThat(lld1.get(1)).isEqualTo(1);
+    }
+
+    /**
+     * 编写getRecursive方法的测试
+     */
+    @Test
+    public void getRecursiveTest() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+        assertThat(lld1.getRecursive(0)).isEqualTo(null);
+        assertThat(lld1.getRecursive(1)).isEqualTo(null);
+        lld1.addLast(1); // [1]
+        assertThat(lld1.getRecursive(1)).isEqualTo(null);
+        assertThat(lld1.getRecursive(0)).isEqualTo(1);
+        lld1.addFirst(10); // [10, 1]
+        assertThat(lld1.getRecursive(0)).isEqualTo(10);
+        assertThat(lld1.getRecursive(1)).isEqualTo(1);
+    }
+
+    /** 编写isEmpty和size方法的测试。*/
+    @Test
+    public void removeFirstAndRemoveLastTest() {
+        Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.addFirst(3);
+        lld1.removeFirst();// [3, 2, 1]
+        assertThat(lld1.toList()).containsExactly(2, 1).inOrder();
+        lld1.removeLast();// [2]
+        assertThat(lld1.toList()).containsExactly(2).inOrder();
+        lld1.removeLast(); // []
+        assertThat(lld1.toList()).isEmpty();
+        assertThat(lld1.removeFirst()).isEqualTo(null);
+        assertThat(lld1.removeLast()).isEqualTo(null);
+    }
     // Below, you'll write your own tests for LinkedListDeque61B.
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class LinkedListDeque61B<T> implements Deque61B<T>{
@@ -45,36 +46,74 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
 
     @Override
     public List<T> toList() {
-
+        List<T> returnList = new ArrayList<>();
+        Node<T> p = sentinel.next;
+        while (p != sentinel) {
+            returnList.add(p.item);
+            p = p.next;
+        }
+        return returnList;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return (sentinel.next == sentinel && sentinel.prev == sentinel);
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public T removeFirst() {
-        return null;
+        if (this.isEmpty()) {
+            return null;
+        }
+        T res = sentinel.next.item;
+        sentinel.next = sentinel.next.next;
+        sentinel.next.prev = sentinel;
+        size--;
+        return res;
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if (this.isEmpty()) {
+            return null;
+        }
+        T res = sentinel.prev.item;
+        sentinel.prev = sentinel.prev.prev;
+        sentinel.prev.next = sentinel;
+        size--;
+        return res;
     }
 
     @Override
     public T get(int index) {
-        return null;
+        if (this.isEmpty() || index < 0 || index >= size) {
+            return null;
+        }
+        Node<T> p = sentinel.next;
+        while (true) {
+            if (index == 0) {
+                return p.item;
+            }
+            p = p.next;
+            index--;
+        }
     }
-
+    private  T getRecursiveHelper(int index, Node<T> p) {
+        if (index == 0) {
+            return p.item;
+        }
+        return getRecursiveHelper(index - 1, p.next);
+    }
     @Override
     public T getRecursive(int index) {
-        return null;
+        if (this.isEmpty() || index < 0 || index >= size) {
+            return null;
+        }
+        return getRecursiveHelper(index, sentinel.next);
     }
 }
