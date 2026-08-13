@@ -3,42 +3,49 @@ import java.util.List;
 public class LinkedListDeque61B<T> implements Deque61B<T>{
     private static class Node<T> {
         T item;
-        Node<T> next;
         Node<T> prev;
-        private Node(T value) {
-            item = value;
-            next = null;
-            prev = null;
-        }
-    }
+        Node<T> next;
 
-    private Node<T> sentinel;
+        public Node(T item) {
+           this.item = item;
+           this.prev = null;
+           this.next = null;
+        }
+
+    }
+    Node<T> sentinel;
     private int size;
-    private Node<T> head;
     public LinkedListDeque61B() {
         sentinel = new Node<>(null);
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
-        head = sentinel;
         size = 0;
     }
-
     @Override
     public void addFirst(T x) {
         Node<T> newnode = new Node<>(x);
-        head.next = newnode;
-        newnode.prev = head;
-        newnode.next =sentinel;
+        newnode.next = sentinel.next;
+        sentinel.next.prev = newnode;
+        sentinel.next = newnode;
+        newnode.prev = sentinel;
+        size++;
+
     }
 
     @Override
     public void addLast(T x) {
+        Node<T> newnode = new Node<>(x);
+        newnode.prev = sentinel.prev;
+        sentinel.prev.next = newnode;
+        newnode.next = sentinel;
+        sentinel.prev = newnode;
+        size++;
 
     }
 
     @Override
     public List<T> toList() {
-        return List.of();
+
     }
 
     @Override
