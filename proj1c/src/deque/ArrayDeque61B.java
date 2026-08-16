@@ -3,12 +3,13 @@ package deque;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.lang.Math;
+
 
 public class ArrayDeque61B<T> implements Deque61B<T> {
     private T[] items;
     private int size;
     private static final int INITIAL_CAPACITY = 8;
+    private static final int BUFFER_CAPACITY = 16;
     private int head, tail;
     public ArrayDeque61B() {
         items = (T[]) new Object[INITIAL_CAPACITY];
@@ -49,7 +50,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     @Override
     public List<T> toList() {
         List<T> returnList = new ArrayList<>();
-        for (int i = 0 ;i < size; i++) {
+        for (int i = 0; i < size; i++) {
             T x = get(i);
             returnList.add(x);
         }
@@ -76,7 +77,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         items[index] = null;
         head++;
         size--;
-        if (items.length >= 16 && 4 * size < items.length) {
+        if (items.length >= BUFFER_CAPACITY && 4 * size < items.length) {
             resize(items.length / 2);
         }
         return res;
@@ -92,7 +93,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         items[index] = null;
         tail--;
         size--;
-        if (items.length >= 16 && 4 * size < items.length) {
+        if (items.length >= BUFFER_CAPACITY && 4 * size < items.length) {
             resize(items.length / 2);
         }
         return res;

@@ -11,7 +11,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     private class LinkedListDeque61BIterator implements Iterator<T> {
         private Node p;
         public LinkedListDeque61BIterator() {
-            p = sentinel;
+            p = sentinel.next;
         }
         @Override
         public boolean hasNext() {

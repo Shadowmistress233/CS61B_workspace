@@ -1,5 +1,4 @@
 package deque;
-
 import java.util.List;
 
 /**
