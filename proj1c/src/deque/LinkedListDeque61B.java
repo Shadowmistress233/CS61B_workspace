@@ -15,7 +15,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         }
         @Override
         public boolean hasNext() {
-            return p.next != sentinel;
+            return p != sentinel;
         }
 
         @Override
@@ -140,14 +140,14 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque61B<?> other) {
+        if (o instanceof Deque61B<?> other) {
             if (other.size() != this.size) {
                 return false;
             }
             Iterator<T> ti = this.iterator();
             Iterator<?> oi = other.iterator();
             while (ti.hasNext()) {
-                if (ti.next() != oi.next()) {
+                if (!ti.next().equals(oi.next())) {
                     return false;
                 }
             }

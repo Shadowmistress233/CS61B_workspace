@@ -1,8 +1,8 @@
 package gh2;
 
 
+import deque.ArrayDeque61B;
 import deque.Deque61B;
-import deque.LinkedListDeque61B;
 
 //Note: This file will not compile until you complete the Deque61B implementations
 public class GuitarString {
@@ -19,7 +19,7 @@ public class GuitarString {
     public GuitarString(double frequency) {
 
         final int capacity = (int) Math.round(SR / frequency);
-        buffer = new LinkedListDeque61B<Double>();
+        buffer = new ArrayDeque61B<Double>();
         for (int i = 0; i < capacity; i++) {
             buffer.addLast(0.0);
         }
