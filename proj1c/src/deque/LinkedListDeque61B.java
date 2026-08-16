@@ -156,4 +156,9 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return this.toList().toString();
+    }
 }
