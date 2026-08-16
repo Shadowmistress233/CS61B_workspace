@@ -140,11 +140,19 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof LinkedListDeque61B other) {
+        if (o instanceof LinkedListDeque61B<?> other) {
             if (other.size() != this.size) {
                 return false;
             }
-            return this.toList() == other.toList();
+            Iterator<T> ti = this.iterator();
+            Iterator<?> oi = other.iterator();
+            while (ti.hasNext()) {
+                if (ti.next() != oi.next()) {
+                    return false;
+                }
+            }
+            return true;
+
         }
         return false;
     }
