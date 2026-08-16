@@ -135,5 +135,16 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             return returnItem;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof ArrayDeque61B other) {
+            if (other.size() == this.size) {
+                return false;
+            }
+            return this.toList() == other.toList();
+        }
+        return false;
+    }
 }
 

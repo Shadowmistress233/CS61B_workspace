@@ -137,4 +137,15 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         }
         return getRecursiveHelper(index, sentinel.next);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof LinkedListDeque61B other) {
+            if (other.size() != this.size) {
+                return false;
+            }
+            return this.toList() == other.toList();
+        }
+        return false;
+    }
 }
