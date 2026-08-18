@@ -20,8 +20,7 @@ public class UnionFind {
     /* Returns the parent of V. If V is the root of a tree, returns the
        negative size of the tree for which V is the root. */
     public int parent(int v) {
-        // TODO: YOUR CODE HERE
-        return -1;
+        return items[v];
     }
 
     /* Returns true if nodes/vertices V1 and V2 are connected. */
@@ -37,9 +36,9 @@ public class UnionFind {
         if (v >= items.length) {
             throw new IllegalArgumentException("Index out of range!");
         }
-        int returnParent = items[v];
-        while (items[returnParent] >= 0) {
-            returnParent = items[returnParent];
+        int returnParent = parent(v);
+        while (parent(v) >= 0) {
+            returnParent = parent(v);
         }
         return returnParent;
     }
