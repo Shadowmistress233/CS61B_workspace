@@ -1,5 +1,4 @@
 public class UnionFind {
-    // TODO: Instance variables
     private int[] items;
 
     /* Creates a UnionFind data structure holding N items. Initially, all
@@ -34,11 +33,13 @@ public class UnionFind {
         if (v >= items.length) {
             throw new IllegalArgumentException("Index out of range!");
         }
-        int returnParent = v;
-        while (parent(returnParent) >= 0) {
-            returnParent = parent(returnParent);
+        if (parent(v) < 0) {
+            return v;
         }
-        return returnParent;
+
+        items[v] = find(parent(v));
+        return parent(v);
+
     }
 
     /* Connects two items V1 and V2 together by connecting their respective
@@ -52,7 +53,7 @@ public class UnionFind {
         if (v1Root == v2Root) {
             return;
         }
-        if (sizeOf(v1Root)> sizeOf(v2Root)) {
+        if (sizeOf(v1Root) > sizeOf(v2Root)) {
             int temp = v1Root;
             v1Root = v2Root;
             v2Root = temp;
