@@ -49,7 +49,10 @@ public class UnionFind {
     public void union(int v1, int v2) {
         int v1Root = find(v1);
         int v2Root = find(v2);
-        if (Math.abs(items[v1Root]) > Math.abs(items[v2Root])) {
+        if (v1Root == v2Root) {
+            return;
+        }
+        if (sizeOf(v1Root)> sizeOf(v2Root)) {
             int temp = v1Root;
             v1Root = v2Root;
             v2Root = temp;
