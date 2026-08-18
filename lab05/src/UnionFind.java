@@ -5,7 +5,6 @@ public class UnionFind {
     /* Creates a UnionFind data structure holding N items. Initially, all
        items are in disjoint sets. */
     public UnionFind(int N) {
-        // TODO: YOUR CODE HERE
         items = new int[N];
         for (int i = 0; i < N; i++) {
             items[i] = -1;
@@ -35,8 +34,14 @@ public class UnionFind {
        allowing for fast search-time. If invalid items are passed into this
        function, throw an IllegalArgumentException. */
     public int find(int v) {
-        // TODO: YOUR CODE HERE
-        return -1;
+        if (v >= items.length) {
+            throw new IllegalArgumentException("Index out of range!");
+        }
+        int returnParent = items[v];
+        while (items[returnParent] >= 0) {
+            returnParent = items[returnParent];
+        }
+        return returnParent;
     }
 
     /* Connects two items V1 and V2 together by connecting their respective
