@@ -34,9 +34,9 @@ public class UnionFind {
         if (v >= items.length) {
             throw new IllegalArgumentException("Index out of range!");
         }
-        int returnParent = parent(v);
-        while (parent(v) >= 0) {
-            returnParent = parent(v);
+        int returnParent = v;
+        while (parent(returnParent) >= 0) {
+            returnParent = parent(returnParent);
         }
         return returnParent;
     }
@@ -47,7 +47,15 @@ public class UnionFind {
        root to V2's root. Union-ing an item with itself or items that are
        already connected should not change the structure. */
     public void union(int v1, int v2) {
-        // TODO: YOUR CODE HERE
+        int v1Root = find(v1);
+        int v2Root = find(v2);
+        if (Math.abs(items[v1Root]) > Math.abs(items[v2Root])) {
+            int temp = v1Root;
+            v1Root = v2Root;
+            v2Root = temp;
+        }
+        items[v2Root] += items[v1Root];
+        items[v1Root] = v2Root;
     }
 
 }
