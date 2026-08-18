@@ -13,8 +13,7 @@ public class UnionFind {
 
     /* Returns the size of the set V belongs to. */
     public int sizeOf(int v) {
-        // TODO: YOUR CODE HERE
-        return -1;
+        return -items[find(v)];
     }
 
     /* Returns the parent of V. If V is the root of a tree, returns the
