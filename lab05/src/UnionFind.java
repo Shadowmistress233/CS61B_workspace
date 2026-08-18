@@ -1,10 +1,15 @@
 public class UnionFind {
     // TODO: Instance variables
+    private int[] items;
 
     /* Creates a UnionFind data structure holding N items. Initially, all
        items are in disjoint sets. */
     public UnionFind(int N) {
         // TODO: YOUR CODE HERE
+        items = new int[N];
+        for (int i = 0; i < N; i++) {
+            items[i] = -1;
+        }
     }
 
     /* Returns the size of the set V belongs to. */
