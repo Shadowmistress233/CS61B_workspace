@@ -24,8 +24,7 @@ public class UnionFind {
 
     /* Returns true if nodes/vertices V1 and V2 are connected. */
     public boolean connected(int v1, int v2) {
-        // TODO: YOUR CODE HERE
-        return false;
+        return find(v1) == find(v2);
     }
 
     /* Returns the root of the set V belongs to. Path-compression is employed
