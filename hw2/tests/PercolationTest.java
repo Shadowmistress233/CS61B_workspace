@@ -62,6 +62,7 @@ public class PercolationTest {
         for (int[] site : openSites) {
             p.open(site[0], site[1]);
         }
+        assertThat(p.isFull(0, 1)).isEqualTo(true);
         assertThat(getState(N, p)).isEqualTo(expectedState);
         assertThat(p.percolates()).isFalse();
     }

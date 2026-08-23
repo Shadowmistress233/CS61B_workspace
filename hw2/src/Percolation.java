@@ -17,10 +17,7 @@ public class Percolation {
         TOP = N * N;
         BOTTOM = N * N + 1;
         uf = new WeightedQuickUnionUF(N*N+2);
-        for (int i = 0; i < N; i++) {
-            uf.union(TOP, i);
-            uf.union(BOTTOM, N * (N - 1) + i);
-        }
+
         items = new boolean[N][N];
         cnt = 0;
     }
@@ -44,11 +41,17 @@ public class Percolation {
         // TODO: Fill in this method.
         valid(row, col);
         items[row][col] = true;
+        if (row == 0) {
+            uf.union(TOP, Index(row, col));
+        }
+        if (row == items.length - 1) {
+            uf. union(BOTTOM, Index(row, col));
+        }
         cnt++;
         for (int i = 0; i < 4; i++) {
             int otherRow = row + dx[i];
             int otherCol = col + dy[i];
-            if (isValid(otherRow, otherCol)) {
+            if (isValid(otherRow, otherCol) && isOpen(otherRow, otherCol)) {
                 uf.union(Index(otherRow, otherCol), Index(row, col));
             }
         }
@@ -65,7 +68,7 @@ public class Percolation {
         // TODO: Fill in this method.
         valid(row, col);
 
-        return uf.find (Index(row, col)) == TOP;
+        return uf.connected(Index(row, col), TOP);
     }
 
     public int numberOfOpenSites() {
