@@ -85,4 +85,15 @@ public class PercolationTest {
         fail("Did you write your own tests?");
     }
 
+
+    @Test
+    public void PercolationTest() {
+        int N = 3;
+        Percolation p = new Percolation(N);
+        for (int i =0; i < N; i++) {
+            p.open(0, i);
+        }
+        assertThat(p.isFull(0, 0)).isEqualTo(true);
+        assertThat(p.isFull(0, 2)).isEqualTo(true);
+    }
 }

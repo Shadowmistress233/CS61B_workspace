@@ -18,8 +18,8 @@ public class Percolation {
         BOTTOM = N * N + 1;
         uf = new WeightedQuickUnionUF(N*N+2);
         for (int i = 0; i < N; i++) {
-            uf.union(i, TOP);
-            uf.union(N * (N - 1) + i, BOTTOM);
+            uf.union(TOP, i);
+            uf.union(BOTTOM, N * (N - 1) + i);
         }
         items = new boolean[N][N];
         cnt = 0;
@@ -64,7 +64,8 @@ public class Percolation {
     public boolean isFull(int row, int col) {
         // TODO: Fill in this method.
         valid(row, col);
-        return false;
+
+        return uf.find (Index(row, col)) == TOP;
     }
 
     public int numberOfOpenSites() {
