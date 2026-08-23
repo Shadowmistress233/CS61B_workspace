@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class PercolationTest {
@@ -83,7 +84,7 @@ public class PercolationTest {
     //       write some more tests and delete the fail() line
     @Test
     public void yourFirstTestHere() {
-        fail("Did you write your own tests?");
+
     }
 
 
@@ -97,5 +98,11 @@ public class PercolationTest {
         assertThat(p.isFull(0, 0)).isEqualTo(true);
         assertThat(p.isFull(2, 0)).isEqualTo(true);
         assertThat(p.percolates()).isEqualTo(true);
+        assertThrows(IndexOutOfBoundsException.class, () -> p.open(-1, 0));
+        assertThrows(IndexOutOfBoundsException.class, () -> p.open(-645, 65));
+        p.open(0, 2);
+        p.open(0, 2);
+        assertThat(p.isOpen(0, 2)).isEqualTo(true);
+
     }
 }
