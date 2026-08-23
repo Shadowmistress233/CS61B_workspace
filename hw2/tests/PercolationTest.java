@@ -38,7 +38,7 @@ public class PercolationTest {
         }
         return state;
     }
-
+    
     @Test
     public void basicTest() {
         int N = 5;

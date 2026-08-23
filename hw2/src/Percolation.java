@@ -8,6 +8,8 @@ public class Percolation {
     private WeightedQuickUnionUF uf;
     private final int TOP;
     private final int BOTTOM;
+    private int[] dx = {1, -1, 0, 0};
+    private int[] dy = {0, 0, 1, -1};
     public Percolation(int N) {
         if (N <= 0) {
             throw new IllegalArgumentException();
@@ -22,34 +24,52 @@ public class Percolation {
         items = new boolean[N][N];
         cnt = 0;
     }
-    private void vaild(int row, int col) {
-        if (row >= Math.sqrt(items.length) || col >= Math.sqrt(items.length) ||
+    private boolean isValid(int row, int col) {
+        if (row >= items.length || col >= items.length ||
             row < 0 || col < 0) {
+            return false;
+        }
+        return true;
+    }
+    private void valid(int row, int col) {
+        if (!isValid(row, col)) {
             throw new IndexOutOfBoundsException();
         }
     }
+    private int Index(int row, int col) {
+        return row * items.length + col;
+    }
+
     public void open(int row, int col) {
         // TODO: Fill in this method.
-        vaild(row, col);
+        valid(row, col);
         items[row][col] = true;
         cnt++;
+        for (int i = 0; i < 4; i++) {
+            int otherRow = row + dx[i];
+            int otherCol = col + dy[i];
+            if (isValid(otherRow, otherCol)) {
+                uf.union(Index(otherRow, otherCol), Index(row, col));
+            }
+        }
+
     }
 
     public boolean isOpen(int row, int col) {
         // TODO: Fill in this method.
-        vaild(row, col);
+        valid(row, col);
         return items[row][col];
     }
 
     public boolean isFull(int row, int col) {
         // TODO: Fill in this method.
-        vaild(row, col);
+        valid(row, col);
         return false;
     }
 
     public int numberOfOpenSites() {
         // TODO: Fill in this method.
-        return 0;
+        return cnt;
     }
 
     public boolean percolates() {
