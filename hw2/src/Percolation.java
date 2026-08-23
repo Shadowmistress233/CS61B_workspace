@@ -56,6 +56,7 @@ public class Percolation {
             int otherCol = col + DY[i];
             if (isValid(otherRow, otherCol) && isOpen(otherRow, otherCol)) {
                 uf.union(index(otherRow, otherCol), index(row, col));
+                uf_2.union(index(otherRow, otherCol), index(row, col));
             }
         }
 
@@ -68,8 +69,7 @@ public class Percolation {
 
     public boolean isFull(int row, int col) {
         valid(row, col);
-
-        return uf.connected(index(row, col), TOP);
+        return uf_2.connected(index(row, col), TOP);
     }
 
     public int numberOfOpenSites() {
