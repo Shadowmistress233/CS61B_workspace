@@ -75,7 +75,7 @@ public class Percolation {
 
     public boolean percolates() {
         // TODO: Fill in this method.
-        return false;
+        return uf.connected(TOP, BOTTOM);
     }
 
     // TODO: Add any useful helper methods (we highly recommend this!).

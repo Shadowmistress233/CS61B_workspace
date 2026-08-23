@@ -91,9 +91,10 @@ public class PercolationTest {
         int N = 3;
         Percolation p = new Percolation(N);
         for (int i =0; i < N; i++) {
-            p.open(0, i);
+            p.open(i, 0);
         }
         assertThat(p.isFull(0, 0)).isEqualTo(true);
-        assertThat(p.isFull(0, 2)).isEqualTo(true);
+        assertThat(p.isFull(2, 0)).isEqualTo(true);
+        assertThat(p.percolates()).isEqualTo(true);
     }
 }
