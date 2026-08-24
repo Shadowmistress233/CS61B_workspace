@@ -89,7 +89,8 @@ public class NGramMap {
      */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries history = new TimeSeries(words.get(word).ts(), startYear, endYear);
+        return history;
     }
 
     /**
