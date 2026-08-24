@@ -50,6 +50,7 @@ public class NGramMap {
         In wordIn =  new In(wordsFilename);
         In countIn = new In(countsFilename);
         words = new HashMap<>();
+        totalYears = new TimeSeries();
         while (wordIn.hasNextLine()) {
             String line = wordIn.readLine();
             if (line.isEmpty()) {
@@ -153,7 +154,12 @@ public class NGramMap {
     public TimeSeries summedWeightHistory(Collection<String> words,
                                           int startYear, int endYear) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries ts = new TimeSeries();
+        for (String word : words) {
+            TimeSeries tempTs = new TimeSeries(this.words.get(word).ts(), startYear, endYear);
+            ts = ts.plus(tempTs);
+        }
+        return ts.dividedBy(totalYears);
     }
 
     /**
@@ -162,7 +168,11 @@ public class NGramMap {
      */
     public TimeSeries summedWeightHistory(Collection<String> words) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries ts = new TimeSeries();
+        for (String word : words) {
+            ts.plus(this.words.get(word).ts());
+        }
+        return ts.dividedBy(totalYears);
     }
 
     // TODO: Add any private helper methods.
