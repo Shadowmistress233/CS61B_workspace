@@ -33,7 +33,6 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     }
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
-        // TODO: Fill in this constructor.
         if (startYear < ts.firstKey() || endYear > ts.lastKey()) {
             throw new IndexOutOfBoundsException();
         }

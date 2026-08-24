@@ -1,5 +1,6 @@
 import ngrams.TimeSeries;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.fail;
 
 /** Unit Tests for the TimeSeries class.
  *  @author Josh Hug
@@ -66,6 +68,12 @@ public class TimeSeriesTest {
         TimeSeries tsTemp = new TimeSeries(ts, 200, 250);
         for (int i = 200; i <= 250; i++) {
             assertThat(ts.get(i)).isEqualTo(tsTemp.get(i));
+        }
+        try {
+            TimeSeries tsOutIndex = new TimeSeries(ts, -1, 2000);
+            Assertions.fail("应该产生错误");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("成功捕获错误");
         }
     }
 } 
