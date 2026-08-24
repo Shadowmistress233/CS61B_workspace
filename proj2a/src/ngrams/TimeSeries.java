@@ -77,7 +77,22 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries plus(TimeSeries ts) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries returnTs = new TimeSeries();
+        if (this.isEmpty() && ts.isEmpty()) {
+            return returnTs;
+        }
+        List<Integer> coYear = new ArrayList<>();
+        for (int key : this.keySet()) {
+            if (ts.containsKey(key)) {
+                coYear.add(key);
+            }
+        }
+
+        for (int key : coYear) {
+            double value = this.get(key) + ts.get(key);
+            returnTs.put(key, value);
+        }
+        return returnTs;
     }
 
     /**

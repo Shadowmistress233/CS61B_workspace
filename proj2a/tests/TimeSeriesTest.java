@@ -93,5 +93,17 @@ public class TimeSeriesTest {
             expectedDate.add(ts.get(key));
         }
         assertThat(ts.data()).containsExactlyElementsIn(expectedDate);
+
+        /**
+         * 测试plus()函数
+         */
+        TimeSeries tsPlus = new TimeSeries();
+        assertThat(tsPlus.plus(tsPlus).isEmpty()).isEqualTo(true);
+        tsPlus.put(1999, 250.0);
+        tsPlus.put(1992, 240.0);
+        TimeSeries expectedTs = new TimeSeries();
+        expectedTs.put(1999, 500.0);
+        expectedTs.put(1992, 480.0);
+        assertThat(tsPlus.plus(tsPlus).data()).containsExactlyElementsIn(expectedTs.data());
     }
 } 
