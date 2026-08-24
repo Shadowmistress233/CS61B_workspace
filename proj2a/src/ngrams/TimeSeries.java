@@ -29,9 +29,6 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * 创建 TS 的副本，但仅限于 STARTYEAR 和 ENDYEAR 之间，
      * 包括两个端点。
      */
-    private void validate() {
-        // TODO:
-    }
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
         if (startYear < ts.firstKey() || endYear > ts.lastKey()) {
@@ -58,7 +55,6 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * 必须与years() 的顺序相同。
      */
     public List<Double> data() {
-        // TODO: Fill in this method.
         List<Double> returnList = new ArrayList<>();
         for (int key : years()) {
             returnList.add(this.get(key));
@@ -76,7 +72,6 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * 应存储包含该年份的 TimeSeries 中的值。
      */
     public TimeSeries plus(TimeSeries ts) {
-        // TODO: Fill in this method.
         TimeSeries returnTs = new TimeSeries();
         if (this.isEmpty() && ts.isEmpty()) {
             return returnTs;
@@ -105,10 +100,15 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * 如果 TS 有一个年份不在这个 TimeSeries 中，则忽略它。
      */
     public TimeSeries dividedBy(TimeSeries ts) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries returnTs = new TimeSeries();
+        for (int key : this.keySet()) {
+            if (!ts.containsKey(key)) {
+                throw new IllegalArgumentException();
+            }
+            double value = this.get(key) / ts.get(key);
+            returnTs.put(key, value);
+        }
+        return returnTs;
     }
 
-    // TODO: Add any private helper methods.
-    // TODO: Remove all TODO comments before submitting.
 }

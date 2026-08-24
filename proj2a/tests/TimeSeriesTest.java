@@ -105,5 +105,12 @@ public class TimeSeriesTest {
         expectedTs.put(1999, 500.0);
         expectedTs.put(1992, 480.0);
         assertThat(tsPlus.plus(tsPlus).data()).containsExactlyElementsIn(expectedTs.data());
+        /**
+         * 测试 dividedBy方法
+         */
+        TimeSeries expectedDividedBy = new TimeSeries();
+        expectedDividedBy.put(1999, 1.0);
+        expectedDividedBy.put(1992, 1.0);
+        assertThat(tsPlus.dividedBy(tsPlus).data()).containsExactlyElementsIn(expectedDividedBy.data());
     }
 } 
