@@ -21,7 +21,8 @@ import static ngrams.TimeSeries.MIN_YEAR;
 public class NGramMap {
 
     // TODO: 添加任何必要的静态/实例变量。
-    private Map<String, Word> map;
+    private Map<String, Word> words;
+    private TimeSeries totalYears;
     private class Word {
         private  String name;
         private TimeSeries ts;
@@ -48,7 +49,7 @@ public class NGramMap {
         // TODO: 填写这个构造函数。请参阅规范的“NGramMap Tips”部分以获取帮助。
         In wordIn =  new In(wordsFilename);
         In countIn = new In(countsFilename);
-        map = new HashMap<>();
+        words = new HashMap<>();
         while (wordIn.hasNextLine()) {
             String line = wordIn.readLine();
             if (line.isEmpty()) {
@@ -58,9 +59,24 @@ public class NGramMap {
             String word = tokens[0];
             int year = Integer.parseInt(tokens[1]);
             double count = Double.parseDouble(tokens[2]);
-            if (map.containsKey(word)) {
-                map[word].add
+            if (words.containsKey(word)) {
+                words.get(word).add(year, count);
+            } else {
+                Word w = new Word(word);
+                w.add(year, count);
+                words.put(word, w);
             }
+        }
+
+        while (countIn.hasNextLine()) {
+            String line = countIn.readLine();
+            if (line.isEmpty()) {
+                continue;
+            }
+            String[] tokens = line.split(",");
+            int year = Integer.parseInt(tokens[0]);
+            double count = Double.parseDouble(tokens[1]);
+            totalYears.put(year, count);
         }
     }
 
