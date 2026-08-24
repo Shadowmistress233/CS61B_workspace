@@ -48,7 +48,6 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * 返回此 TimeSeries 的所有年份（按任意顺序）。
      */
     public List<Integer> years() {
-        // TODO: Fill in this method.
         List<Integer> returnList = new ArrayList<>();
         returnList.addAll(this.keySet());
         return returnList;
@@ -60,7 +59,11 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public List<Double> data() {
         // TODO: Fill in this method.
-        return null;
+        List<Double> returnList = new ArrayList<>();
+        for (int key : years()) {
+            returnList.add(this.get(key));
+        }
+        return returnList;
     }
 
     /**

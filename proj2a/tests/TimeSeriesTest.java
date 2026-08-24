@@ -84,5 +84,14 @@ public class TimeSeriesTest {
             expectedList.add(i);
         }
         assertThat(ts.years()).containsExactlyElementsIn(expectedList);
+
+        /**
+         * 测试date()方法
+         */
+        List<Double> expectedDate = new ArrayList<>();
+        for (int key : ts.years()) {
+            expectedDate.add(ts.get(key));
+        }
+        assertThat(ts.data()).containsExactlyElementsIn(expectedDate);
     }
 } 
