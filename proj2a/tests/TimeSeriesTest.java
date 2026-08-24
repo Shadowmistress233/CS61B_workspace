@@ -75,5 +75,14 @@ public class TimeSeriesTest {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("成功捕获错误");
         }
+
+        /**
+         * 测试years()方法
+         */
+        List<Integer> expectedList = new ArrayList<>();
+        for (int i = ts.firstKey(); i <= ts.lastKey(); i++) {
+            expectedList.add(i);
+        }
+        assertThat(ts.years()).containsExactlyElementsIn(expectedList);
     }
 } 
