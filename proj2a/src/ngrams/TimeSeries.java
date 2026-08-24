@@ -111,5 +111,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         }
         return returnTs;
     }
-
+    public TimeSeries copy() {
+        TimeSeries returnTs = new TimeSeries(this, firstKey(), lastKey());
+        return returnTs;
+    }
 }
