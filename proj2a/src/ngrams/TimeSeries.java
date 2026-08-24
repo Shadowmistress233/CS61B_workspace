@@ -11,30 +11,41 @@ import java.util.TreeMap;
  */
 public class TimeSeries extends TreeMap<Integer, Double> {
 
-    /** If it helps speed up your code, you can assume year arguments to your NGramMap
-     * are between 1400 and 2100. We've stored these values as the constants
-     * MIN_YEAR and MAX_YEAR here. */
+   /** 如果它有助于加速你的代码，你可以假设你的 NGramMap 的年份参数
+     * 介于 1400 和 2100 之间。我们将这些值存储为常量
+     * 此处为 MIN_YEAR 和 MAX_YEAR。 */
     public static final int MIN_YEAR = 1400;
     public static final int MAX_YEAR = 2100;
 
     /**
-     * Constructs a new empty TimeSeries.
+     * 构造一个新的空TimeSeries。
      */
     public TimeSeries() {
         super();
     }
 
     /**
-     * Creates a copy of TS, but only between STARTYEAR and ENDYEAR,
-     * inclusive of both end points.
+     * 创建 TS 的副本，但仅限于 STARTYEAR 和 ENDYEAR 之间，
+     * 包括两个端点。
      */
+    private void validate() {
+        // TODO:
+    }
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
         // TODO: Fill in this constructor.
+        if (startYear < ts.firstKey() || endYear > ts.lastKey()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        for (int i = startYear; i <= endYear; i++) {
+            this.put(i, ts.get(i));
+        }
+
     }
 
     /**
-     * Returns all years for this TimeSeries (in any order).
+     * 返回此 TimeSeries 的所有年份（按任意顺序）。
      */
     public List<Integer> years() {
         // TODO: Fill in this method.
@@ -42,8 +53,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     }
 
     /**
-     * Returns all data for this TimeSeries (in any order).
-     * Must be in the same order as years().
+     * 返回此 TimeSeries 的所有数据（按任意顺序）。
+     * 必须与years() 的顺序相同。
      */
     public List<Double> data() {
         // TODO: Fill in this method.
@@ -51,13 +62,13 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     }
 
     /**
-     * Returns the year-wise sum of this TimeSeries with the given TS. In other words, for
-     * each year, sum the data from this TimeSeries with the data from TS. Should return a
-     * new TimeSeries (does not modify this TimeSeries).
+     * 返回此 TimeSeries 与给定 TS 的逐年总和。换句话说，对于
+     * 每年，将此 TimeSeries 的数据与 TS 的数据相加。应该返回一个
+     * 新的TimeSeries（不修改此TimeSeries）。
      *
-     * If both TimeSeries don't contain any years, return an empty TimeSeries.
-     * If one TimeSeries contains a year that the other one doesn't, the returned TimeSeries
-     * should store the value from the TimeSeries that contains that year.
+     * 如果两个 TimeSeries 都不包含任何年份，则返回空 TimeSeries。
+     * 如果一个 TimeSeries 包含另一个 TimeSeries 不包含的年份，则返回 TimeSeries
+     * 应存储包含该年份的 TimeSeries 中的值。
      */
     public TimeSeries plus(TimeSeries ts) {
         // TODO: Fill in this method.
@@ -65,13 +76,13 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     }
 
     /**
-     * Returns the quotient of the value for each year this TimeSeries divided by the
-     * value for the same year in TS. Should return a new TimeSeries (does not modify this
-     * TimeSeries).
+     * 返回此 TimeSeries 每年的值除以
+     * 同年的 TS 值。应该返回一个新的 TimeSeries（不修改此
+     *时间序列）。
      *
-     * If TS is missing a year that exists in this TimeSeries, throw an
-     * IllegalArgumentException.
-     * If TS has a year that is not in this TimeSeries, ignore it.
+     * 如果 TS 缺少此 TimeSeries 中存在的年份，则抛出一个
+     * 非法参数异常。
+     * 如果 TS 有一个年份不在这个 TimeSeries 中，则忽略它。
      */
     public TimeSeries dividedBy(TimeSeries ts) {
         // TODO: Fill in this method.

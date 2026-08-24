@@ -55,4 +55,17 @@ public class TimeSeriesTest {
         assertThat(totalPopulation.years()).isEmpty();
         assertThat(totalPopulation.data()).isEmpty();
     }
+
+    @Test
+    public void testMyTs() {
+        TimeSeries ts = new TimeSeries();
+        for (int i = 200; i <= 300; i++) {
+            ts.put(i, i + 30.0);
+        }
+
+        TimeSeries tsTemp = new TimeSeries(ts, 200, 250);
+        for (int i = 200; i <= 250; i++) {
+            assertThat(ts.get(i)).isEqualTo(tsTemp.get(i));
+        }
+    }
 } 
