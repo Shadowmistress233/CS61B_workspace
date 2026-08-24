@@ -79,6 +79,9 @@ public class NGramMap {
             totalYears.put(year, count);
         }
     }
+    private boolean isValid(String word) {
+        return words.containsKey(word);
+    }
     /**
      * 提供 STARTYEAR 和 ENYEAR 之间（包括两端）的 WORD 历史记录。的
      * 返回的 TimeSeries 应该是一个副本，而不是指向此 NGramMap 的 TimeSeries 的链接。在其他方面
@@ -87,7 +90,7 @@ public class NGramMap {
      * 返回一个空的时间序列。
      */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
-        if(!words.containsKey(word)) {
+        if(!isValid(word)) {
             return new TimeSeries();
         }
         return new TimeSeries(words.get(word).ts(), startYear, endYear);
@@ -101,7 +104,7 @@ public class NGramMap {
      */
     public TimeSeries countHistory(String word) {
         // TODO: Fill in this method.
-        if (!words.containsKey(word)) {
+        if (!isValid(word)) {
             return new TimeSeries();
         }
         return words.get(word).ts().copy();
@@ -121,8 +124,12 @@ public class NGramMap {
      */
     public TimeSeries weightHistory(String word, int startYear, int endYear) {
         // TODO: Fill in this method.
-
-        return null;
+        if (!isValid(word)) {
+            return new TimeSeries();
+        }
+        TimeSeries totalTs = new TimeSeries(totalYears, startYear, endYear);
+        TimeSeries wordTs = new TimeSeries(words.get(word).ts(), startYear, endYear);
+        return wordTs.dividedBy(totalTs);
     }
 
     /**
