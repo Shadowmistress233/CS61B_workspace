@@ -139,7 +139,10 @@ public class NGramMap {
      */
     public TimeSeries weightHistory(String word) {
         // TODO: Fill in this method.
-        return null;
+        if (!isValid(word)) {
+            return new TimeSeries();
+        }
+        return words.get(word).ts().dividedBy(totalYears);
     }
 
     /**
