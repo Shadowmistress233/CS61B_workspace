@@ -156,6 +156,9 @@ public class NGramMap {
         // TODO: Fill in this method.
         TimeSeries ts = new TimeSeries();
         for (String word : words) {
+            if (!isValid(word)) {
+                continue;
+            }
             TimeSeries tempTs = new TimeSeries(this.words.get(word).ts(), startYear, endYear);
             ts = ts.plus(tempTs);
         }
@@ -170,7 +173,10 @@ public class NGramMap {
         // TODO: Fill in this method.
         TimeSeries ts = new TimeSeries();
         for (String word : words) {
-            ts.plus(this.words.get(word).ts());
+            if (!isValid(word)) {
+                continue;
+            }
+            ts = ts.plus(this.words.get(word).ts());
         }
         return ts.dividedBy(totalYears);
     }

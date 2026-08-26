@@ -69,12 +69,8 @@ public class TimeSeriesTest {
         for (int i = 200; i <= 250; i++) {
             assertThat(ts.get(i)).isEqualTo(tsTemp.get(i));
         }
-        try {
-            TimeSeries tsOutIndex = new TimeSeries(ts, -1, 2000);
-            Assertions.fail("应该产生错误");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("成功捕获错误");
-        }
+        TimeSeries tsOutIndex = new TimeSeries(ts, -1, 2000);
+        assertThat(tsOutIndex.years()).containsExactlyElementsIn(ts.years());
 
         /**
          * 测试years()方法

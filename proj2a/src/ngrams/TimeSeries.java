@@ -31,14 +31,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
-        if (startYear < ts.firstKey() || endYear > ts.lastKey()) {
-            throw new IndexOutOfBoundsException();
-        }
-
-        for (int i = startYear; i <= endYear; i++) {
-            this.put(i, ts.get(i));
-        }
-
+        this.putAll(ts.subMap(startYear, true, endYear, true));
     }
 
     /**
@@ -112,7 +105,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         return returnTs;
     }
     public TimeSeries copy() {
-        TimeSeries returnTs = new TimeSeries(this, firstKey(), lastKey());
-        return returnTs;
+        TimeSeries returnCopy = new TimeSeries();
+        returnCopy.putAll(this);
+        return returnCopy;
     }
 }
