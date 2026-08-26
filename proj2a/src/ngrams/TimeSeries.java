@@ -38,9 +38,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * 返回此 TimeSeries 的所有年份（按任意顺序）。
      */
     public List<Integer> years() {
-        List<Integer> returnList = new ArrayList<>();
-        returnList.addAll(this.keySet());
-        return returnList;
+        return new ArrayList<>(this.keySet());
     }
 
     /**
@@ -48,11 +46,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * 必须与years() 的顺序相同。
      */
     public List<Double> data() {
-        List<Double> returnList = new ArrayList<>();
-        for (int key : years()) {
-            returnList.add(this.get(key));
-        }
-        return returnList;
+        return new ArrayList<>(this.values());
     }
 
     /**

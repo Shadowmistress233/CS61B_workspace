@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         NgordnetServer hns = new NgordnetServer();
-        NGramMap ngm = new NGramMap(TOP_14337_WORDS_FILE, TOTAL_COUNTS_FILE);
+        NGramMap ngm = new NGramMap(TOP_49887_WORDS_FILE, TOTAL_COUNTS_FILE);
         hns.startUp();
         hns.register("history", new HistoryHandler(ngm));
         hns.register("historytext", new HistoryTextHandler(ngm));
