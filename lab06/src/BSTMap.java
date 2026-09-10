@@ -29,7 +29,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     public void put(K key, V value) {
         root = putHelper(root, key, value);
     }
-    public BSTNode putHelper(BSTNode node, K key, V value) {
+    private BSTNode putHelper(BSTNode node, K key, V value) {
         if (node == null) {
             return new BSTNode(key, value);
         }
