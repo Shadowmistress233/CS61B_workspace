@@ -24,11 +24,11 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public void put(K key, V value) {
         BSTNode child = new BSTNode(key, value);
-        putHelper(root, child);
+        putHelper(root, child) = child;
     }
-    private void putHelper(BSTNode father, BSTNode child) {
+    private BSTNode putHelper(BSTNode father, BSTNode child) {
         if (father == null) {
-            father = child;
+            return father;
         }
 
         if (child.key.compareTo(father.key) <= 0) {
@@ -49,11 +49,10 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             return node.value;
         }
         if (key.compareTo(node.key) <= 0) {
-            getHelper(node.left, key);
+           return getHelper(node.left, key);
         } else {
-            getHelper(node.right, key);
+           return getHelper(node.right, key);
         }
-        return null;
     }
 
     @Override
