@@ -4,7 +4,7 @@ import java.util.Set;
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     private class BSTNode {
-        public final K key ;
+        public K key ;
         public V value;
         public BSTNode left;
         public BSTNode right;
@@ -15,6 +15,10 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             this.left = null;
             this.right = null;
         }
+        public void update (K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
     }
     private BSTNode root;
 
@@ -23,20 +27,23 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     }
     @Override
     public void put(K key, V value) {
-        BSTNode child = new BSTNode(key, value);
-        putHelper(root, child) = child;
+        root = putHelper(root, key, value);
     }
-    private BSTNode putHelper(BSTNode father, BSTNode child) {
-        if (father == null) {
-            return father;
+    public BSTNode putHelper(BSTNode node, K key, V value) {
+        if (node == null) {
+            return new BSTNode(key, value);
         }
-
-        if (child.key.compareTo(father.key) <= 0) {
-            putHelper(father.left, child);
+        int cmp = key.compareTo(node.key);
+        if (cmp > 0) {
+            node.right = putHelper(node.right, key, value);
+        } else if (cmp < 0) {
+            node.left = putHelper(node.left, key, value);
         } else {
-            putHelper(father.right, child);
+            node.update(key, value);
         }
+        return node;
     }
+
     @Override
     public V get(K key) {
         return getHelper(root, key);
