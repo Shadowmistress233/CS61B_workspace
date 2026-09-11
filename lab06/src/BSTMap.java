@@ -52,13 +52,13 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         if (node == null) {
             return null;
         }
-        if (node.key == key) {
+        int cmp = key.compareTo(node.key);
+        if (cmp == 0) {
             return node.value;
-        }
-        if (key.compareTo(node.key) <= 0) {
-           return getHelper(node.left, key);
+        } else if (cmp > 0) {
+            return getHelper(node.right, key);
         } else {
-           return getHelper(node.right, key);
+            return getHelper(node.left, key);
         }
     }
 
