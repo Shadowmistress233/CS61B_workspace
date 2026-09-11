@@ -1,8 +1,6 @@
 import org.antlr.v4.runtime.tree.Tree;
 
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
@@ -122,19 +120,36 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public Iterator<K> iterator() {
-        return null;
+        return new MapIterator();
     }
 
-    public class MapIterator<K> implements Iterator<K> {
-
+    public class MapIterator implements Iterator<K> {
+        private Stack<BSTNode> nodes;
+        public MapIterator() {
+            nodes = new Stack<>();
+            if (root == null) {
+                return ;
+            }
+            BSTNode node = root;
+            while (node != null) {
+                nodes.push(node);
+                node = node.left;
+            }
+        }
         @Override
         public boolean hasNext() {
-            return false;
+            return !nodes.isEmpty();
         }
 
         @Override
         public K next() {
-            return null;
+            if (!hasNext()) {
+                throw new IllegalCallerException();
+            }
+            BSTNode node = nodes.pop();
+            if (node.right != null) nodes.push(node.right);
+
+            return node.key;
         }
     }
 }
