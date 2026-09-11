@@ -5,18 +5,18 @@ import java.util.*;
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     private class BSTNode {
-        public K key ;
+        public K key;
         public V value;
         public BSTNode left;
         public BSTNode right;
 
-        public BSTNode (K key, V value) {
+        public BSTNode(K key, V value) {
             this.key = key;
             this.value = value;
             this.left = null;
             this.right = null;
         }
-        public void update (K key, V value) {
+        public void update(K key, V value) {
             this.key = key;
             this.value = value;
         }
@@ -120,6 +120,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         }
         V value = get(key);
         root = removeHelper(root, key);
+        size--;
         return value;
     }
     private BSTNode removeHelper(BSTNode node, K key) {
@@ -154,7 +155,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         public MapIterator() {
             nodes = new Stack<>();
             if (root == null) {
-                return ;
+                return;
             }
             BSTNode node = root;
             while (node != null) {
