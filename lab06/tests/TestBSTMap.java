@@ -135,5 +135,9 @@ public class TestBSTMap {
         expectedSet.add("cat");
         expectedSet.add("dog");
         assertThat(map.keySet()).containsExactlyElementsIn(expectedSet);
+
+        for (String elem : map) {
+            System.out.println(elem);
+        }
     }
 }

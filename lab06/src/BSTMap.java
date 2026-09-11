@@ -115,9 +115,35 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public V remove(K key) {
-        return null;
+        if (!containsKey(key)) {
+            return null;
+        }
+        V value = get(key);
+        root = removeHelper(root, key);
+        return value;
     }
-
+    private BSTNode removeHelper(BSTNode node, K key) {
+        if (node == null) {
+            return null;
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp > 0) {
+            node.right = removeHelper(node.right, key);
+        } else if (cmp < 0) {
+            node.left = removeHelper(node.left, key);
+        } else {
+            if (node.left == null) return node.right;
+            if (node.right == null) return node.left;
+            BSTNode tempNode = node.right;
+            while (tempNode.left != null) {
+                tempNode = tempNode.left;
+            }
+            node.key = tempNode.key;
+            node.value = tempNode.value;
+            node.right = removeHelper(node.right, tempNode.key);
+        }
+        return node;
+    }
     @Override
     public Iterator<K> iterator() {
         return new MapIterator();
