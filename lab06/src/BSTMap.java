@@ -1,14 +1,13 @@
-import org.antlr.v4.runtime.tree.Tree;
 
 import java.util.*;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     private class BSTNode {
-        public K key;
-        public V value;
-        public BSTNode left;
-        public BSTNode right;
+        private K key;
+        private V value;
+        private BSTNode left;
+        private BSTNode right;
 
         public BSTNode(K key, V value) {
             this.key = key;
