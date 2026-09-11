@@ -30,10 +30,10 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public void put(K key, V value) {
         root = putHelper(root, key, value);
-        size++;
     }
     private BSTNode putHelper(BSTNode node, K key, V value) {
         if (node == null) {
+            size++;
             return new BSTNode(key, value);
         }
         int cmp = key.compareTo(node.key);
