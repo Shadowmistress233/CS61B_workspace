@@ -1,5 +1,8 @@
+import org.antlr.v4.runtime.tree.Tree;
+
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
@@ -93,10 +96,23 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         root = null;
         size = 0;
     }
+    public void printInOrder() {
+
+    }
 
     @Override
     public Set<K> keySet() {
-        return Set.of();
+        return keySetHelper(root);
+    }
+    private Set<K> keySetHelper(BSTNode node) {
+        Set<K> returnSet = new TreeSet<>();
+        if (node == null) {
+            return new TreeSet<>();
+        }
+        returnSet.addAll(keySetHelper(node.right));
+        returnSet.add(node.key);
+        returnSet.addAll(keySetHelper(node.left));
+        return returnSet;
     }
 
     @Override
@@ -107,5 +123,18 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public Iterator<K> iterator() {
         return null;
+    }
+
+    public class MapIterator<K> implements Iterator<K> {
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public K next() {
+            return null;
+        }
     }
 }

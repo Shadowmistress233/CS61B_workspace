@@ -1,6 +1,9 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import static com.google.common.truth.Truth.assertThat;
 
 /** Tests by Brendan Hu, Spring 2015, revised for 2016 by Josh Hug and for 2023 by Noah Adhikari */
@@ -122,4 +125,15 @@ public class TestBSTMap {
         assertThat(b.get("b")).isEqualTo("provolone");
     }
 
+    @Test
+    public void keySetTest() {
+        BSTMap<String, Integer> map = new BSTMap<>();
+        Set<String> expectedSet = new TreeSet<>();
+        assertThat(map.keySet()).containsExactlyElementsIn(expectedSet);
+        map.put("cat", 1);
+        map.put("dog", 2);
+        expectedSet.add("cat");
+        expectedSet.add("dog");
+        assertThat(map.keySet()).containsExactlyElementsIn(expectedSet);
+    }
 }
