@@ -171,10 +171,16 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         @Override
         public K next() {
             if (!hasNext()) {
-                throw new IllegalCallerException();
+                throw new NoSuchElementException();
             }
             BSTNode node = nodes.pop();
-            if (node.right != null) nodes.push(node.right);
+            if (node.right != null) {
+                BSTNode tempNode = node.right;
+                while (tempNode != null) {
+                    nodes.push(tempNode);
+                    tempNode = tempNode.left;
+                }
+            }
 
             return node.key;
         }
