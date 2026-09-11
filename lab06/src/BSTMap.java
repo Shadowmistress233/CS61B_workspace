@@ -100,18 +100,13 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
-        return keySetHelper(root);
-    }
-    private Set<K> keySetHelper(BSTNode node) {
         Set<K> returnSet = new TreeSet<>();
-        if (node == null) {
-            return new TreeSet<>();
+        for (K elem : this) {
+            returnSet.add(elem);
         }
-        returnSet.addAll(keySetHelper(node.right));
-        returnSet.add(node.key);
-        returnSet.addAll(keySetHelper(node.left));
         return returnSet;
     }
+
 
     @Override
     public V remove(K key) {
