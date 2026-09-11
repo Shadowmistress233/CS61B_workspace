@@ -17,7 +17,15 @@ public class TestBSTMap {
             fail();
         }
     }
-
+    @Test
+    public void getTestAndPutTest () {
+        BSTMap<String, Integer> map = new BSTMap<>();
+        assertThat(map.get("cat")).isEqualTo(null);
+        map.put("cat", 1);
+        map.put("dog", 2);
+        assertThat(map.get("cat")).isEqualTo(1);
+        assertThat(map.get("dog")).isEqualTo(2);
+    }
     // This test assumes put/size/containsKey/get are implemented properly.
     @Test
     public void sanityClearTest() {
