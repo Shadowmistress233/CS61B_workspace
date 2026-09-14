@@ -50,7 +50,6 @@ public class RedBlackTree<T extends Comparable<T>> {
      * @param node
      */
     void flipColors(RBTreeNode<T> node) {
-        // TODO: YOUR CODE HERE
         node.isBlack = !node.isBlack;
         node.left.isBlack = !node.left.isBlack;
         node.right.isBlack = !node.right.isBlack;
@@ -64,8 +63,12 @@ public class RedBlackTree<T extends Comparable<T>> {
      * @return
      */
     RBTreeNode<T> rotateRight(RBTreeNode<T> node) {
-        // TODO: YOUR CODE HERE
-        return null;
+        RBTreeNode<T> newRoot = node.left;
+        node.left = newRoot.right;
+        newRoot.right = node;
+        newRoot.isBlack = node.isBlack;
+        node.isBlack = false;
+        return newRoot;
     }
 
     /**
