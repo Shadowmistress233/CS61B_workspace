@@ -80,7 +80,12 @@ public class RedBlackTree<T extends Comparable<T>> {
      */
     RBTreeNode<T> rotateLeft(RBTreeNode<T> node) {
         // TODO: YOUR CODE HERE
-        return null;
+        RBTreeNode<T> newRoot = node.right;
+        node.right = newRoot.left;
+        newRoot.left = node;
+        newRoot.isBlack = node.isBlack;
+        node.isBlack = false;
+        return newRoot;
     }
 
     /**
