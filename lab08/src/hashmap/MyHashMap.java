@@ -18,14 +18,30 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     private int index(K key) {
         return Math.floorMod(key.hashCode(), buckets.length);
     }
+    private Node getNode(K key) {
+        for (Node node : buckets[index(key)]) {
+            if (node.key == key) {
+                return node;
+            }
+        }
+        return null;
+    }
     @Override
     public void put(K key, V value) {
+        Node node = getNode(key);
+        if (node == null) {
+            node.value = value;
+        }
         buckets[index(key)].add(new Node(key, value));
     }
 
     @Override
     public V get(K key) {
+        for (Node node : buckets[index(key)]) {
+            if (node.key == key) {
 
+            }
+        }
     }
 
     @Override
