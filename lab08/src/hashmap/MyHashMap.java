@@ -49,7 +49,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public boolean containsKey(K key) {
-        throw new UnsupportedOperationException();
+        return getNode(key) != null;
     }
 
     @Override
