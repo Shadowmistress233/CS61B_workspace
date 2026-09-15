@@ -118,6 +118,9 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         size = 0;
         buckets = createTable(initialCapacity);
         this.loadFactor = loadFactor;
+        for (Collection<Node> bucket : buckets) {
+            bucket = createBucket();
+        }
     }
     @SuppressWarnings("unchecked")
     private Collection<Node>[] createTable(int initialCapacity) {
