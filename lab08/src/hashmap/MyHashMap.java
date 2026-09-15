@@ -34,6 +34,9 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         } else {
             buckets[index(key)].add(new Node(key, value));
             size++;
+            if (size > loadFactor * buckets.length) {
+                resize(2 * buckets.length);
+            }
         }
 
     }
@@ -75,6 +78,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
                 newBuckets[idx].add(node);
             }
         }
+        this.buckets = newBuckets;
     }
     @Override
     public Set<K> keySet() {
