@@ -1,6 +1,11 @@
 package hashmap;
 
+import org.w3c.dom.Node;
+
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Set;
 
 /**
  *  A hash table-backed Map implementation.
@@ -9,6 +14,47 @@ import java.util.Collection;
  *  @author YOUR NAME HERE
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
+
+    @Override
+    public void put(K key, V value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public V get(K key) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean containsKey(K key) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int size() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void clear() {
+        throw new UnsupportedOperationException();
+
+    }
+
+    @Override
+    public Set<K> keySet() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public V remove(K key) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Iterator<K> iterator() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Protected helper class to store key/value pairs
@@ -27,11 +73,17 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Instance Variables */
     private Collection<Node>[] buckets;
     // You should probably define some more!
-
+    private static final int initialCapacity = 16;
+    private static final double initialLoadFactor = 0.75;
+    private double loadFactor;
     /** Constructors */
-    public MyHashMap() { }
+    public MyHashMap() {
+        this(initialCapacity, initialLoadFactor);
+    }
 
-    public MyHashMap(int initialCapacity) { }
+    public MyHashMap(int initialCapacity) {
+        this(initialCapacity, initialLoadFactor);
+    }
 
     /**
      * MyHashMap constructor that creates a backing array of initialCapacity.
@@ -40,8 +92,14 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param initialCapacity initial size of backing array
      * @param loadFactor maximum load factor
      */
-    public MyHashMap(int initialCapacity, double loadFactor) { }
-
+    public MyHashMap(int initialCapacity, double loadFactor) {
+        buckets = createTable(initialCapacity);
+        this.loadFactor = loadFactor;
+    }
+    @SuppressWarnings("unchecked")
+    private Collection<Node>[] createTable(int initialCapacity) {
+        return (Collection<Node>[]) new Collection[initialCapacity];
+    }
     /**
      * Returns a data structure to be a hash table bucket
      *
@@ -64,7 +122,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     protected Collection<Node> createBucket() {
         // TODO: Fill in this method.
-        return null;
+        return new LinkedList<>();
     }
 
     // TODO: Implement the methods of the Map61B Interface below
