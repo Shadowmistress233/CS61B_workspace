@@ -59,8 +59,10 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException();
-
+        for (Collection<Node> bucket : buckets) {
+            bucket.clear();
+        }
+        size = 0;
     }
 
     @Override
