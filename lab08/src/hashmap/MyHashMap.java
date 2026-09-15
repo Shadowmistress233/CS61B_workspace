@@ -120,8 +120,8 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         size = 0;
         buckets = createTable(initialCapacity);
         this.loadFactor = loadFactor;
-        for (Collection<Node> bucket : buckets) {
-            bucket = createBucket();
+        for (int i = 0; i < buckets.length; i++) {
+            buckets[i] = createBucket();
         }
     }
     @SuppressWarnings("unchecked")
