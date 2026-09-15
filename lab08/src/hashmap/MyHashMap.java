@@ -37,11 +37,11 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public V get(K key) {
-        for (Node node : buckets[index(key)]) {
-            if (node.key == key) {
-
-            }
+        Node node = getNode(key);
+        if (node == null) {
+            return null;
         }
+        return node.value;
     }
 
     @Override
