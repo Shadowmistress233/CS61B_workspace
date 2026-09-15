@@ -20,7 +20,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
     private Node getNode(K key) {
         for (Node node : buckets[index(key)]) {
-            if (node.key == key) {
+            if (node.key.equals(key)) {
                 return node;
             }
         }
