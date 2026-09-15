@@ -17,7 +17,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        buckets[Math.floorMod(key.hashCode(), buckets.length)].add(new Node(key, value));
     }
 
     @Override
