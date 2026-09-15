@@ -64,7 +64,18 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
         size = 0;
     }
-
+    private void resize (int capacity) {
+        Collection<Node>[] newBuckets = createTable(capacity);
+        for (int i = 0; i < capacity; i++) {
+            newBuckets[i] = createBucket();
+        }
+        for (Collection<Node> bucket : buckets) {
+            for (Node node : bucket) {
+                int idx = Math.floorMod(node.key.hashCode(), newBuckets.length);
+                newBuckets[idx].add(node);
+            }
+        }
+    }
     @Override
     public Set<K> keySet() {
         throw new UnsupportedOperationException();
