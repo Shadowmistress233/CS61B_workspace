@@ -15,14 +15,17 @@ import java.util.Set;
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
 
+    private int index(K key) {
+        return Math.floorMod(key.hashCode(), buckets.length);
+    }
     @Override
     public void put(K key, V value) {
-        buckets[Math.floorMod(key.hashCode(), buckets.length)].add(new Node(key, value));
+        buckets[index(key)].add(new Node(key, value));
     }
 
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+
     }
 
     @Override
