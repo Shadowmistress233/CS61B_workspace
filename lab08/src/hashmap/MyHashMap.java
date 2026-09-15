@@ -14,7 +14,7 @@ import java.util.Set;
  *  @author YOUR NAME HERE
  */
 public class MyHashMap<K, V> implements Map61B<K, V> {
-
+    private int size;
     private int index(K key) {
         return Math.floorMod(key.hashCode(), buckets.length);
     }
@@ -29,10 +29,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     @Override
     public void put(K key, V value) {
         Node node = getNode(key);
-        if (node == null) {
+        if (node != null) {
             node.value = value;
+        } else {
+            buckets[index(key)].add(new Node(key, value));
+            size++;
         }
-        buckets[index(key)].add(new Node(key, value));
+
     }
 
     @Override
@@ -112,6 +115,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param loadFactor maximum load factor
      */
     public MyHashMap(int initialCapacity, double loadFactor) {
+        size = 0;
         buckets = createTable(initialCapacity);
         this.loadFactor = loadFactor;
     }
