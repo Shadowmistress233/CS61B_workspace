@@ -240,14 +240,39 @@ public class GameOfLife {
         // TODO: Implement this method so that the described transitions occur.
         // TODO: The current state is represented by TETiles[][] tiles and the next
         // TODO: state/evolution should be returned in TETile[][] nextGen.
-
-
-
-
         // TODO: Returns the next evolution in TETile[][] nextGen.
-        return null;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int num = check(nextGen, i, j);
+                if (num < 2 || num > 3) {
+                    nextGen[i][j] = Tileset.NOTHING;
+                } else {
+                    nextGen[i][j] = Tileset.CELL;
+                }
+            }
+        }
+        return nextGen;
     }
 
+    /**
+     * 私人方法，用于检查x细胞的周围的邻居数量。
+     */
+    private static final int[] dx = {1, -1, 0, 0, 1, -1, 1, -1};
+    private static final int[] dy = {0, 0, 1, -1, 1, 1, -1, -1};
+    private boolean isValid(int x, int y) {
+        return x < width && x >= 0
+                && y < height && y >= 0;
+    }
+    private int check(TETile[][] tiles, int x, int y) {
+        int cnt = 0;
+        for (int i = 0; i < 8; i++) {
+             if (isValid(x + dx[i], y + dy[i])
+                     && tiles[x][y].equals(Tileset.CELL)) {
+                 cnt++;
+             }
+         }
+        return cnt;
+    }
     /**
      * Helper method for saveBoard without rendering and running the game.
      * @param tiles
