@@ -321,11 +321,11 @@ public class GameOfLife {
      */
     public TETile[][] loadBoard(String filename) {
         // TODO: Read in the file.
-        String save = FileUtils.readFile(SAVE_FILE);
+        String save = FileUtils.readFile(filename);
         // TODO: Split the file based on the new line character.
         String[] lines = save.split("\n");
         // TODO: Grab and set the dimensions from the first line.
-        String[] dimensions = lines[0].split("\n");
+        String[] dimensions = lines[0].split(" ");
         width = Integer.parseInt(dimensions[0]);
         height = Integer.parseInt(dimensions[1]);
         // TODO: Create a TETile[][] to load the board from the file into
@@ -337,7 +337,7 @@ public class GameOfLife {
         // TODO：函数。确保方向正确！
         for (int x = 0; x < width; x ++) {
             for (int y = 0; y < height; y++) {
-                if (lines[height - y].charAt(x) == 1) {
+                if (lines[height - y].charAt(x) == '1') {
                     newWorld[x][y] = Tileset.CELL;
                 } else {
                     newWorld[x][y] = Tileset.NOTHING;
