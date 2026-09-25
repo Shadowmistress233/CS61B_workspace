@@ -109,9 +109,10 @@ public class Tetris {
      *
      * @param linesCleared 消除的行数
      */
+    private static final int[] addScore = {0, 100, 300, 500, 800};
     private void incrementScore(int linesCleared) {
         // TODO: 根据消除的行数增加得分。
-
+        score += addScore[linesCleared];
     }
 
     /**
