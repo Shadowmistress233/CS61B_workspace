@@ -148,6 +148,11 @@ public class Tetris {
                 write++;
             }
         }
+        for (int y = write; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                tiles[x][y] = Tileset.NOTHING;
+            }
+        }
         // TODO: 根据消除的行数增加得分。
         incrementScore(linesCleared);
         fillAux();
