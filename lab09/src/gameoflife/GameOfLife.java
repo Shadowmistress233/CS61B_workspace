@@ -307,9 +307,9 @@ public class GameOfLife {
         StringBuilder sb = new StringBuilder();
         String s = width + " " + height + "\n";
         sb.append(s);
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j ++) {
-                if (isCell(currentState[i][j])) {
+        for (int y = height - 1; y >= 0; y--) {
+            for (int x = 0; x < width; x++) {
+                if (isCell(currentState[x][y])) {
                     sb.append(1);
                 } else {
                     sb.append(0);
