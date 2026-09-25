@@ -298,12 +298,6 @@ public class GameOfLife {
      * 0 代表NOTHING，1 代表CELL。
      */
     public void saveBoard() {
-        // TODO: 将板的尺寸保存到文件的第一行。
-        // TODO: 宽度和高度应以空格分隔，并以“\n”结尾。
-        // TODO: 将棋盘的当前状态保存到 save.txt 中。你应该
-        // TODO：使用提供的 FileUtils 函数来帮助您。确保
-        // TODO：方向正确！板上的每一行都应该
-        // TODO: 以换行符结束。
         StringBuilder sb = new StringBuilder();
         String s = width + " " + height + "\n";
         sb.append(s);
@@ -327,24 +321,34 @@ public class GameOfLife {
      */
     public TETile[][] loadBoard(String filename) {
         // TODO: Read in the file.
-
+        String save = FileUtils.readFile(SAVE_FILE);
         // TODO: Split the file based on the new line character.
-
+        String[] lines = save.split("\n");
         // TODO: Grab and set the dimensions from the first line.
-
+        String[] dimensions = lines[0].split("\n");
+        width = Integer.parseInt(dimensions[0]);
+        height = Integer.parseInt(dimensions[1]);
         // TODO: Create a TETile[][] to load the board from the file into
+        TETile[][] newWorld = new TETile[width][height];
         // TODO: and any additional variables that you think might help.
 
-
-        // TODO: Load the state of the board from the given filename. You can
-        // TODO: use the provided builder variable to help you and FileUtils
-        // TODO: functions. Make sure the orientation is correct!
-
+        // TODO：从给定的文件名加载板的状态。你可以
+        // TODO：使用提供的构建器变量来帮助您和 FileUtils
+        // TODO：函数。确保方向正确！
+        for (int x = 0; x < width; x ++) {
+            for (int y = 0; y < height; y++) {
+                if (lines[height - y].charAt(x) == 1) {
+                    newWorld[x][y] = Tileset.CELL;
+                } else {
+                    newWorld[x][y] = Tileset.NOTHING;
+                }
+            }
+        }
 
 
 
         // TODO: Return the board you loaded. Replace/delete this line.
-        return null;
+        return newWorld;
     }
 
     /**
