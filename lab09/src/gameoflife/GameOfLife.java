@@ -6,7 +6,6 @@ import tileengine.TETile;
 import tileengine.Tileset;
 import utils.FileUtils;
 
-import javax.swing.plaf.FileChooserUI;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
@@ -237,11 +236,6 @@ public class GameOfLife {
         TETile[][] nextGen = new TETile[width][height];
         // The board is filled with Tileset.NOTHING
         fillWithNothing(nextGen);
-
-        // TODO: Implement this method so that the described transitions occur.
-        // TODO: The current state is represented by TETiles[][] tiles and the next
-        // TODO: state/evolution should be returned in TETile[][] nextGen.
-        // TODO: Returns the next evolution in TETile[][] nextGen.
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 int num = check(tiles, i, j);
@@ -320,21 +314,16 @@ public class GameOfLife {
      * 0 represents NOTHING, 1 represents a CELL.
      */
     public TETile[][] loadBoard(String filename) {
-        // TODO: Read in the file.
         String save = FileUtils.readFile(filename);
-        // TODO: Split the file based on the new line character.
+
         String[] lines = save.split("\n");
-        // TODO: Grab and set the dimensions from the first line.
         String[] dimensions = lines[0].split(" ");
+
         width = Integer.parseInt(dimensions[0]);
         height = Integer.parseInt(dimensions[1]);
-        // TODO: Create a TETile[][] to load the board from the file into
-        TETile[][] newWorld = new TETile[width][height];
-        // TODO: and any additional variables that you think might help.
 
-        // TODO：从给定的文件名加载板的状态。你可以
-        // TODO：使用提供的构建器变量来帮助您和 FileUtils
-        // TODO：函数。确保方向正确！
+        TETile[][] newWorld = new TETile[width][height];
+
         for (int x = 0; x < width; x ++) {
             for (int y = 0; y < height; y++) {
                 if (lines[height - y].charAt(x) == '1') {
@@ -344,10 +333,6 @@ public class GameOfLife {
                 }
             }
         }
-
-
-
-        // TODO: Return the board you loaded. Replace/delete this line.
         return newWorld;
     }
 
