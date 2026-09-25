@@ -319,15 +319,15 @@ public class GameOfLife {
         String[] lines = save.split("\n");
         String[] dimensions = lines[0].split(" ");
 
-        width = Integer.parseInt(dimensions[0]);
-        height = Integer.parseInt(dimensions[1]);
+        int w = Integer.parseInt(dimensions[0]);
+        int h = Integer.parseInt(dimensions[1]);
 
-        TETile[][] newWorld = new TETile[width][height];
+        TETile[][] newWorld = new TETile[w][h];
 
         int lineNum = 1;
-        for (int y = height - 1; y >= 0; y--) {
+        for (int y = h - 1; y >= 0; y--) {
             String rowStr = lines[lineNum++];
-            for (int x = 0; x < width; x++) {
+            for (int x = 0; x < w; x++) {
                 newWorld[x][y] = (rowStr.charAt(x) == '1') ? Tileset.CELL : Tileset.NOTHING;
             }
         }
