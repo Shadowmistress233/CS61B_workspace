@@ -243,17 +243,23 @@ public class GameOfLife {
         // TODO: Returns the next evolution in TETile[][] nextGen.
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                int num = check(nextGen, i, j);
-                if (num < 2 || num > 3) {
-                    nextGen[i][j] = Tileset.NOTHING;
-                } else {
+                int num = check(tiles, i, j);
+                if (isCell(tiles[i][j]) && (num == 2 || num == 3)) {
+                    nextGen[i][j] = Tileset.CELL;
+                }
+                if (!isCell(tiles[i][j]) && num == 3) {
                     nextGen[i][j] = Tileset.CELL;
                 }
             }
         }
         return nextGen;
     }
-
+    /**
+     * 检查该TETile 是不是一个细胞。
+     */
+    private boolean isCell(TETile teTile) {
+        return teTile.equals(Tileset.CELL);
+    }
     /**
      * 私人方法，用于检查x细胞的周围的邻居数量。
      */
@@ -267,7 +273,7 @@ public class GameOfLife {
         int cnt = 0;
         for (int i = 0; i < 8; i++) {
              if (isValid(x + dx[i], y + dy[i])
-                     && tiles[x][y].equals(Tileset.CELL)) {
+                     && tiles[x + dx[i]][y + dy[i]].equals(Tileset.CELL)) {
                  cnt++;
              }
          }
