@@ -145,30 +145,24 @@ public class Tetris {
         incrementScore(linesCleared);
         fillAux();
     }
-    public static TETile[][] deleteLine(TETile[][] tiles, int row) {
+    public static void deleteLine(TETile[][] tiles, int row) {
         int width = tiles.length;
         int height = tiles[0].length;
-        TETile[][] result = new TETile[width][height];
-        for (int y = 0; y < row; y++) {
-            for (int x = 0; x < width; x++) {
-                result[x][y] = tiles[x][y];
-            }
-        }
         if (row == height - 1) {
             for (int x = 0; x < width; x++) {
-                result[x][row] = Tileset.NOTHING;
+                tiles[x][row] = Tileset.NOTHING;
             }
-            return result;
+
         }
         for (int y = row; y < height - 1; y++) {
             for (int x = 0; x < width; x++) {
-                result[x][y] = tiles[x][y + 1];
+                tiles[x][y] = tiles[x][y + 1];
             }
         }
         for (int x = 0; x < width; x++) {
-            result[x][height - 1] = Tileset.NOTHING;
+            tiles[x][height - 1] = Tileset.NOTHING;
         }
-        return result;
+
     }
     /**
      * 游戏主循环逻辑所在的方法。只要游戏没有结束，就应当一直运行。

@@ -11,7 +11,7 @@ import java.awt.Font;
  * 追踪角色等高级功能之前，先确保其他所有功能正常工作。
  */
 public class TERenderer {
-    private static final int TILE_SIZE = 16;
+    private static final int TILE_SIZE = 50;
     private int width;
     private int height;
     private int xOffset;
