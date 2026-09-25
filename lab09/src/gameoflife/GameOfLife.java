@@ -324,13 +324,11 @@ public class GameOfLife {
 
         TETile[][] newWorld = new TETile[width][height];
 
-        for (int x = 0; x < width; x ++) {
-            for (int y = 0; y < height; y++) {
-                if (lines[height - y].charAt(x) == '1') {
-                    newWorld[x][y] = Tileset.CELL;
-                } else {
-                    newWorld[x][y] = Tileset.NOTHING;
-                }
+        int lineNum = 1;
+        for (int y = height - 1; y >= 0; y--) {
+            String rowStr = lines[lineNum++];
+            for (int x = 0; x < width; x++) {
+                newWorld[x][y] = (rowStr.charAt(x) == '1') ? Tileset.CELL : Tileset.NOTHING;
             }
         }
         return newWorld;
