@@ -177,8 +177,14 @@ public class Tetris {
 
         // TODO: 构建你的游戏循环。游戏应当一直运行直到 game over。
         // 根据实验规范说明，在游戏循环中调用相应的辅助方法。
-
-
+        while (!isGameOver()) {
+            if (currentTetromino == null) {
+                spawnPiece();
+            }
+            updateBoard();
+            clearLines(board);
+            renderBoard();
+        }
     }
 
     /**
