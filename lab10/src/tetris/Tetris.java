@@ -182,9 +182,13 @@ public class Tetris {
                 spawnPiece();
             }
             updateBoard();
-            clearLines(board);
+            if (currentTetromino == null){
+                clearLines(board);
+            }
             renderBoard();
         }
+        System.out.println(">>> 游戏结束 GAME OVER! 得分: " + score);
+
     }
 
     /**
