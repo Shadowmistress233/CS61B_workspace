@@ -5,15 +5,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 /**
- * A library of simple file operations. Feel free to modify this file.
+ * 简单文件操作工具库。你可以自由修改此文件。
  */
 public class FileUtils {
     /**
-     * Writes the specified contents to a file with the given filename.
+     * 将指定内容写入具有给定文件名的文件中。
      *
-     * @param filename The name of the file to write to.
-     * @param contents The contents to write to the file.
-     * @throws RuntimeException if an IOException occurs during the write operation.
+     * @param filename 要写入的文件名。
+     * @param contents 要写入文件的内容。
+     * @throws RuntimeException 如果在写入操作期间发生 IOException。
      */
     public static void writeFile(String filename, String contents) {
         try {
@@ -24,11 +24,11 @@ public class FileUtils {
     }
 
     /**
-     * Reads the contents of a file with the given filename.
+     * 读取具有给定文件名的文件内容。
      *
-     * @param filename The name of the file to read from.
-     * @return The contents of the file as a String.
-     * @throws RuntimeException if an IOException occurs during the read operation.
+     * @param filename 要读取的文件名。
+     * @return 文件内容的字符串表示形式。
+     * @throws RuntimeException 如果在读取操作期间发生 IOException。
      */
     public static String readFile(String filename) {
         try {
@@ -39,10 +39,10 @@ public class FileUtils {
     }
 
     /**
-     * Checks if a file with the given filename exists.
+     * 检查具有给定文件名的文件是否存在。
      *
-     * @param filename The name of the file to check for existence.
-     * @return true if the file exists, false otherwise.
+     * @param filename 要检查是否存在的文件的文件名。
+     * @return 如果文件存在则返回 true，否则返回 false。
      */
     public static boolean fileExists(String filename) {
         return new File(filename).exists();

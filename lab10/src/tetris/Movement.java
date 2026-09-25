@@ -4,7 +4,7 @@ import tileengine.TETile;
 import tileengine.Tileset;
 
 /**
- *  Provides the logic for movement of Tetris pieces.
+ *  提供俄罗斯方块移动的逻辑。
  *
  *  @author Erik Nelson, Omar Yu, and Jasmine Lin
  */
@@ -24,25 +24,25 @@ public class Movement {
     }
 
     /**
-     * Rotate the current Tetromino 90 degrees to the right (clockwise).
+     * 将当前方块向右顺时针旋转 90 度。
      */
     public void rotateRight() {
         rotate(Rotation.RIGHT);
     }
 
     /**
-     * Rotate the current Tetromino 90 degrees to the left (counter-clockwise).
+     * 将当前方块向左逆时针旋转 90 度。
      */
     public void rotateLeft() {
         rotate(Rotation.LEFT);
     }
 
     /**
-     * Attempts to move the current Tetromino by a shift of deltaX and deltaY.
-     * If the Tetromino cannot move and will collide with a boundary or existing piece,
-     * it is placed at its current position and nullified so a new Tetromino can spawn.
-     * @param deltaX
-     * @param deltaY
+     * 尝试将当前方块平移 deltaX 和 deltaY。
+     * 如果方块无法移动并将与边界或已有方块碰撞，
+     * 则将其固定在当前位置并置空，以便生成新的方块。
+     * @param deltaX X 轴位移量
+     * @param deltaY Y 轴位移量
      */
     public void tryMove(int deltaX, int deltaY) {
         Tetromino t = tetris.getCurrentTetromino();
@@ -63,11 +63,11 @@ public class Movement {
     }
 
     /**
-     * Checks whether moving the current Tetromino by a shift of deltaX and deltaY
-     * is valid, i.e. within bounds and does not collide with other pieces.
-     * @param deltaX
-     * @param deltaY
-     * @return a boolean representing if the move is possible or not
+     * 检查将当前方块平移 deltaX 和 deltaY 是否合法，
+     * 即是否在边界内且不与其他方块发生碰撞。
+     * @param deltaX X 轴位移量
+     * @param deltaY Y 轴位移量
+     * @return 表示移动是否可行的布尔值
      */
     public boolean canMove(int deltaX, int deltaY) {
         Tetromino t = tetris.getCurrentTetromino();
@@ -76,7 +76,7 @@ public class Movement {
             for (int ty = 0; ty < t.height; ty++){
                 if (t.shape[tx][ty]) {
 
-                    // Out of bounds check
+                    // 越界检查
                     if (t.pos.x + tx + deltaX >= WIDTH ||
                             t.pos.x + tx + deltaX < 0 ||
                             t.pos.y + ty + deltaY >= GAME_HEIGHT ||
@@ -84,7 +84,7 @@ public class Movement {
                         return false;
                     }
 
-                    // Board check
+                    // 棋盘占用检查
                     TETile[][] board = tetris.getBoard();
                     if (board[t.pos.x + tx + deltaX][t.pos.y + ty + deltaY] != Tileset.NOTHING) {
                         return false;
@@ -97,8 +97,8 @@ public class Movement {
     }
 
     /**
-     * Moves the current Tetromino down one tile, if not able to move down,
-     * set the block in place and allow for a new Tetromino to be spawned.
+     * 将当前方块向下移动一格；如果无法下落，
+     * 则将方块固定在原位并允许生成新的方块。
      */
     public void dropDown() {
         Tetromino t = tetris.getCurrentTetromino();
@@ -116,11 +116,10 @@ public class Movement {
     }
 
     /**
-     * Checks whether rotating the current Tetromino is valid,
-     * i.e. it will remain within bounds and does not rotate/collide into
-     * other pieces.
-     * @param newShape
-     * @return a boolean representing if the rotation is possible or not
+     * 检查旋转当前方块是否合法，
+     * 即旋转后是否仍处于边界内且不会旋转/碰撞到其他方块。
+     * @param newShape 旋转后的新形状数组
+     * @return 表示旋转是否可行的布尔值
      */
     public boolean canRotate(boolean[][] newShape) {
         Tetromino t = tetris.getCurrentTetromino();
@@ -141,16 +140,16 @@ public class Movement {
     }
 
     /**
-     * Rotation enum used to discern between left and right rotations.
+     * 用于区分向左和向右旋转的枚举。
      */
     public enum Rotation {
         RIGHT, LEFT
     }
 
     /**
-     * Attempts to rotate the current Tetromino by the given direction r (left or right).
-     * If the Tetromino cannot rotate, it will remain in its current orientation.
-     * @param r
+     * 尝试按给定方向 r（左或右）旋转当前方块。
+     * 如果方块无法旋转，则保持当前朝向不变。
+     * @param r 旋转方向
      */
     public void rotate(Rotation r) {
         Tetromino t = tetris.getCurrentTetromino();

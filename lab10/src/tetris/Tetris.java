@@ -8,7 +8,7 @@ import tileengine.Tileset;
 import java.util.*;
 
 /**
- *  Provides the logic for Tetris.
+ *  提供俄罗斯方块的游戏主逻辑。
  *
  *  @author Erik Nelson, Omar Yu, Noah Adhikari, Jasmine Lin
  */
@@ -18,35 +18,35 @@ public class Tetris {
     private static int WIDTH = 10;
     private static int HEIGHT = 20;
 
-    // Tetrominoes spawn above the area we display, so we'll have our Tetris board have a
-    // greater height than what is displayed.
+    // 方块会在我们显示的区域上方生成，因此俄罗斯方块棋盘的高度
+    // 会大于屏幕显示的实际高度。
     private static int GAME_HEIGHT = 25;
 
-    // Contains the tiles for the board.
+    // 包含棋盘的所有瓦片。
     private TETile[][] board;
 
-    // Helps handle movement of pieces.
+    // 辅助处理方块的移动。
     private Movement movement;
 
-    // Checks for if the game is over.
+    // 标识游戏是否结束。
     private boolean isGameOver;
 
-    // The current Tetromino that can be controlled by the player.
+    // 当前玩家可控制的方块。
     private Tetromino currentTetromino;
 
-    // The current game's score.
+    // 当前游戏得分。
     private int score;
 
     /**
-     * Checks for if the game is over based on the isGameOver parameter.
-     * @return boolean representing whether the game is over or not
+     * 根据 isGameOver 参数检查游戏是否结束。
+     * @return 表示游戏是否结束的布尔值
      */
     private boolean isGameOver() {
         return isGameOver;
     }
 
     /**
-     * Renders the game board and score to the screen.
+     * 将游戏棋盘和得分渲染到屏幕上。
      */
     private void renderBoard() {
         ter.drawTiles(board);
@@ -61,27 +61,25 @@ public class Tetris {
     }
 
     /**
-     * Creates a new Tetromino and updates the instance variable
-     * accordingly. Flags the game to end if the top of the board
-     * is filled and the new piece cannot be spawned.
+     * 创建一个新方块并相应地更新实例变量。
+     * 如果棋盘顶部已被填满导致新方块无法生成，则标记游戏结束。
      */
     private void spawnPiece() {
-        // The game ends if this tile is filled
+        // 如果该格已被填满，则游戏结束
         if (board[4][19] != Tileset.NOTHING) {
             isGameOver = true;
         }
 
-        // Otherwise, spawn a new piece and set its position to the spawn point
+        // 否则生成一个新方块并将其位置设为生成点
         currentTetromino = Tetromino.values()[bagRandom.getValue()];
         currentTetromino.reset();
     }
 
     /**
-     * Updates the board based on the user input. Makes the appropriate moves
-     * depending on the user's input.
+     * 根据用户输入更新棋盘。根据用户的按键输入执行相应的移动或旋转。
      */
     private void updateBoard() {
-        // Grabs the current piece.
+        // 获取当前方块。
         Tetromino t = currentTetromino;
         if (actionDeltaTime() > 1000) {
             movement.dropDown();
@@ -90,63 +88,71 @@ public class Tetris {
             return;
         }
 
-        // TODO: Implement interactivity, so the user is able to input the keystrokes to move
-        //  the tile and rotate the tile. You'll want to use some provided helper methods here.
-
+        // TODO: 实现交互逻辑，使玩家能够通过按键移动方块和旋转方块。
+        // 你需要在这里使用一些提供的辅助方法。
+        if (StdDraw.hasNextKeyTyped()) {
+            char key = StdDraw.nextKeyTyped();
+            switch (key) {
+                case 'a' -> movement.tryMove(-1,0);
+                case 's' -> movement.tryMove(0, -1);
+                case 'd' -> movement.tryMove(1, 0);
+                case 'q' -> movement.rotateLeft();
+                case 'w' -> movement.rotateRight();
+            }
+        }
 
         Tetromino.draw(t, board, t.pos.x, t.pos.y);
     }
 
     /**
-     * Increments the score based on the number of lines that are cleared.
+     * 根据消除的行数增加得分。
      *
-     * @param linesCleared
+     * @param linesCleared 消除的行数
      */
     private void incrementScore(int linesCleared) {
-        // TODO: Increment the score based on the number of lines cleared.
+        // TODO: 根据消除的行数增加得分。
 
     }
 
     /**
-     * Clears lines/rows on the provided tiles/board that are horizontally filled.
-     * Repeats this process for cascading effects and updates score accordingly.
-     * @param tiles
+     * 消除给定瓦片数组/棋盘中已水平填满的行。
+     * 重复此过程以处理下落叠放效果并相应更新得分。
+     * @param tiles 棋盘瓦片数组
      */
     public void clearLines(TETile[][] tiles) {
-        // Keeps track of the current number lines cleared
+        // 记录本次清除的行数
         int linesCleared = 0;
 
-        // TODO: Check how many lines have been completed and clear it the rows if completed.
+        // TODO: 检查有多少行已被完全填满，若填满则清除这些行。
 
-        // TODO: Increment the score based on the number of lines cleared.
+        // TODO: 根据消除的行数增加得分。
 
         fillAux();
     }
 
     /**
-     * Where the game logic takes place. The game should continue as long as the game isn't
-     * over.
+     * 游戏主循环逻辑所在的方法。只要游戏没有结束，就应当一直运行。
      */
     public void runGame() {
         resetActionTimer();
 
-        // TODO: Set up your game loop. The game should keep running until the game is over.
-        // Use helper methods inside your game loop, according to the spec description.
+        // TODO: 构建你的游戏循环。游戏应当一直运行直到 game over。
+        // 根据实验规范说明，在游戏循环中调用相应的辅助方法。
 
 
     }
 
     /**
-     * Renders the score using the StdDraw library.
+     * 使用 StdDraw 库渲染当前得分。
      */
     private void renderScore() {
-        // TODO: Use the StdDraw library to draw out the score.
+        // TODO: 使用 StdDraw 库绘制出得分。
 
     }
 
     /**
-     * Use this method to run Tetris.
-     * @param args
+     * 启动运行俄罗斯方块的入口方法。
+     * @param args 命令行参数
      */
     public static void main(String[] args) {
         long seed = args.length > 0 ? Long.parseLong(args[0]) : (new Random()).nextLong();
@@ -155,22 +161,21 @@ public class Tetris {
     }
 
     /**
-     * Everything below here you don't need to touch.
+     * 以下内容均为底层框架支持代码，你无需修改。
      */
 
-    // This is our tile rendering engine.
+    // 瓦片渲染引擎。
     private final TERenderer ter = new TERenderer();
 
-    // Used for randomizing which pieces are spawned.
+    // 用于随机生成方块。
     private Random random;
     private BagRandomizer bagRandom;
 
     private long prevActionTimestamp;
     private long prevFrameTimestamp;
 
-    // The auxiliary board. At each time step, as the piece moves down, the board
-    // is cleared and redrawn, so we keep an auxiliary board to track what has been
-    // placed so far to help render the current game board as it updates.
+    // 辅助棋盘。在每个时间步中，随着方块下落，棋盘会被清空并重绘；
+    // 因此我们维护一个辅助棋盘来记录截至目前已固定的方块，以辅助在更新时渲染当前游戏棋盘。
     private TETile[][] auxiliary;
     private boolean auxFilled;
 
@@ -198,26 +203,27 @@ public class Tetris {
         fillAux();
     }
 
-    // Setter and getter methods.
+    // Getter 和 Setter 方法。
 
     /**
-     * Returns the current game board.
-     * @return
+     * 返回当前游戏棋盘。
+     * @return 当前棋盘的瓦片数组
      */
     public TETile[][] getBoard() {
         return board;
     }
 
     /**
-     * Returns the score.
+     * 返回当前得分。
+     * @return 当前得分
      */
     public int getScore() {
         return score;
     }
 
     /**
-     * Returns the current auxiliary board.
-     * @return
+     * 返回当前辅助棋盘。
+     * @return 辅助棋盘的瓦片数组
      */
     public TETile[][] getAuxiliary() {
         return auxiliary;
@@ -225,31 +231,30 @@ public class Tetris {
 
 
     /**
-     * Returns the current Tetromino/piece.
-     * @return
+     * 返回当前受控方块。
+     * @return 当前方块对象
      */
     public Tetromino getCurrentTetromino() {
         return currentTetromino;
     }
 
     /**
-     * Sets the current Tetromino to null.
-     * @return
+     * 将当前受控方块置为 null。
      */
     public void setCurrentTetromino() {
         currentTetromino = null;
     }
 
     /**
-     * Sets the boolean auxFilled to true;
+     * 将布尔标志 auxFilled 置为 true。
      */
     public void setAuxTrue() {
         auxFilled = true;
     }
 
     /**
-     * Fills the entire board with the specific tile that is passed in.
-     * @param tile
+     * 用传入的指定瓦片填满整个棋盘。
+     * @param tile 用于填充的瓦片
      */
     private void fillBoard(TETile tile) {
         for (int i = 0; i < board.length; i++) {
@@ -260,10 +265,9 @@ public class Tetris {
     }
 
     /**
-     * Copies the contents of the src array into the dest array using
-     * System.arraycopy.
-     * @param src
-     * @param dest
+     * 使用 System.arraycopy 将 src 数组的内容复制到 dest 数组中。
+     * @param src 源数组
+     * @param dest 目标数组
      */
     private static void copyArray(TETile[][] src, TETile[][] dest) {
         for (int i = 0; i < src.length; i++) {
@@ -272,29 +276,29 @@ public class Tetris {
     }
 
     /**
-     * Copies over the tiles from the game board to the auxiliary board.
+     * 将游戏棋盘中的瓦片复制到辅助棋盘中。
      */
     public void fillAux() {
         copyArray(board, auxiliary);
     }
 
     /**
-     * Copies over the tiles from the auxiliary board to the game board.
+     * 将辅助棋盘中的瓦片复制回游戏棋盘中。
      */
     private void auxToBoard() {
         copyArray(auxiliary, board);
     }
 
     /**
-     * Calculates the delta time with the previous action.
-     * @return the amount of time between the previous Tetromino movement with the present
+     * 计算距离上一次动作经过的时间差（delta time）。
+     * @return 上一次方块移动与当前时刻之间的时间间隔（毫秒）
      */
     private long actionDeltaTime() {
         return System.currentTimeMillis() - prevActionTimestamp;
     }
 
     /**
-     * Resets the action timestamp to the current time in milliseconds.
+     * 将动作时间戳重置为当前时间的毫秒数。
      */
     private void resetActionTimer() {
         prevActionTimestamp = System.currentTimeMillis();
