@@ -6,6 +6,7 @@ import tileengine.TETile;
 import tileengine.Tileset;
 import utils.FileUtils;
 
+import javax.swing.plaf.FileChooserUI;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
@@ -292,25 +293,32 @@ public class GameOfLife {
     }
 
     /**
-     * Saves the state of the current state of the board into the
-     * save.txt file (make sure it's saved into this specific file).
-     * 0 represents NOTHING, 1 represents a CELL.
+     * 将当前板子的状态保存到
+     * save.txt 文件（确保将其保存到该特定文件中）。
+     * 0 代表NOTHING，1 代表CELL。
      */
     public void saveBoard() {
-        // TODO: Save the dimensions of the board into the first line of the file.
-        // TODO: The width and height should be separated by a space, and end with "\n".
-
-
-
-        // TODO: Save the current state of the board into save.txt. You should
-        // TODO: use the provided FileUtils functions to help you. Make sure
-        // TODO: the orientation is correct! Each line in the board should
-        // TODO: end with a new line character.
-
-
-
-
-
+        // TODO: 将板的尺寸保存到文件的第一行。
+        // TODO: 宽度和高度应以空格分隔，并以“\n”结尾。
+        // TODO: 将棋盘的当前状态保存到 save.txt 中。你应该
+        // TODO：使用提供的 FileUtils 函数来帮助您。确保
+        // TODO：方向正确！板上的每一行都应该
+        // TODO: 以换行符结束。
+        StringBuilder sb = new StringBuilder();
+        String s = width + " " + height + "\n";
+        sb.append(s);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j ++) {
+                if (isCell(currentState[i][j])) {
+                    sb.append(1);
+                } else {
+                    sb.append(0);
+                }
+            }
+            sb.append('\n');
+        }
+        String result = sb.toString();
+        FileUtils.writeFile(SAVE_FILE, result);
     }
 
     /**
