@@ -5,6 +5,7 @@ import tileengine.TETile;
 import tileengine.TERenderer;
 import tileengine.Tileset;
 
+import java.awt.*;
 import java.util.*;
 
 /**
@@ -196,7 +197,10 @@ public class Tetris {
      */
     private void renderScore() {
         // TODO: 使用 StdDraw 库绘制出得分。
-
+        StdDraw.setFont(new Font("Arial", Font.BOLD, 20));
+        StdDraw.setPenColor(StdDraw.WHITE);
+        StdDraw.text(7, 14, "Score: " + score);
+        ter.resetFont();
     }
 
     /**
