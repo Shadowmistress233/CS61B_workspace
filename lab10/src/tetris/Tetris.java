@@ -128,6 +128,7 @@ public class Tetris {
         // TODO: 检查有多少行已被完全填满，若填满则清除这些行。
         int width = tiles.length;
         int height = tiles[0].length;
+        int write = 0; //双指针读写
         for (int y = 0; y < height; y++) {
             boolean isFull = true;
             for (int x = 0; x < width; x++) {
@@ -137,32 +138,19 @@ public class Tetris {
                 }
             }
             if (isFull) {
-                deleteLine(tiles, y);
                 linesCleared++;
+            } else if (write != y) {
+                for (int x = 0; x < width; x++) {
+                    tiles[x][write] = tiles[x][y];
+                }
+                write++;
+            } else {
+                write++;
             }
         }
         // TODO: 根据消除的行数增加得分。
         incrementScore(linesCleared);
         fillAux();
-    }
-    public static void deleteLine(TETile[][] tiles, int row) {
-        int width = tiles.length;
-        int height = tiles[0].length;
-        if (row == height - 1) {
-            for (int x = 0; x < width; x++) {
-                tiles[x][row] = Tileset.NOTHING;
-            }
-
-        }
-        for (int y = row; y < height - 1; y++) {
-            for (int x = 0; x < width; x++) {
-                tiles[x][y] = tiles[x][y + 1];
-            }
-        }
-        for (int x = 0; x < width; x++) {
-            tiles[x][height - 1] = Tileset.NOTHING;
-        }
-
     }
     /**
      * 游戏主循环逻辑所在的方法。只要游戏没有结束，就应当一直运行。
